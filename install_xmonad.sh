@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install xmonad"
-sudo apt-get install xmonad ttf_dejavu
+sudo apt-get install xmonad ttf-dejavu
 
 echo "create xmonad dir"
 mkdir ~/.xmonad
@@ -23,11 +23,4 @@ xrdb ~/.Xresources
 echo "install urxvt"
 sudo apt-get install rxvt-unicode-256color ttf-dejavu
 
-echo "install resize-font extension"
-git clone https://github.com/simmel/urxvt-resize-font
-
-mkdir -p ~/.urxvt/ext
-cp urxvt-resize-font/resize-font ~/.urxvt/ext
-
-rm -rf urxvt-resize-font
-
+./install_xresources.sh
