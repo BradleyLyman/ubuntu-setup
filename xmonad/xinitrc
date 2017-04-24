@@ -1,1 +1,3 @@
-exec urxvt
+xrdb ~/.Xresources
+
+exec xmonad 
