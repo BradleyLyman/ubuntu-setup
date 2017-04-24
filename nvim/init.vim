@@ -24,7 +24,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 set ruler
 set shell=/bin/bash
 set background=dark
-let g:solarized_termcolors=256
 colorscheme solarized
 
 " -------------------- "
