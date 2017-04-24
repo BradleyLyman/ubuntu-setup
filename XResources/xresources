@@ -117,7 +117,7 @@ URxvt*scrollstyle: plain
 URxvt*cursorBlink: true
 URxvt*scrollBar_floating: true
 URxvt*scrollBar_right: true
-URxvt*scrollColor: #ffffff
+URxvt*scrollColor: S_base02
 URxvt*termName: xterm-256color
 
 ! dont scroll with output !

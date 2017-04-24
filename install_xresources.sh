@@ -8,3 +8,5 @@ cp urxvt-resize-font/resize-font ~/.urxvt/ext
 
 rm -rf urxvt-resize-font
 
+cp ./XResources/xresources ~/.Xresources
+xrdb ~/.Xresources
