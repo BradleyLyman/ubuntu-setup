@@ -6,6 +6,7 @@ call vundle#begin()
     Plugin 'VundleVim/Vundle.vim'
     Plugin 'Valloric/YouCompleteMe'
     Plugin 'altercation/vim-colors-solarized'
+    Plugin 'scrooloose/nerdtree'
 call vundle#end()
 syntax off
 filetype plugin on
@@ -42,7 +43,7 @@ nnoremap <leader>f <C-]>
 nnoremap <leader>t <C-t>
 
 " mappings for file-explore
-nnoremap <leader>E :Explore<CR>
+nnoremap <leader>e :NERDTreeToggle<CR>
 nnoremap <leader>b :buffers<CR>
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>d : bdelete<CR>
