@@ -4,8 +4,8 @@
 
 #define SOALIZED_DARK
 
-! Default to dark background if neither constant is defined, or if both are.  
-#if !defined(SOLARIZED_LIGHT) && !defined(SOLARIZED_DARK) 
+! Default to dark background if neither constant is defined, or if both are.
+#if !defined(SOLARIZED_LIGHT) && !defined(SOLARIZED_DARK)
 #define SOLARIZED_DARK
 #elif defined(SOLARIZED_LIGHT) && defined(SOLARIZED_DARK)
 #undef SOLARIZED_LIGHT
@@ -120,7 +120,7 @@ URxvt*scrollBar_right: true
 URxvt*scrollColor: #ffffff
 URxvt*termName: xterm-256color
 
-! dont scroll with output ! 
+! dont scroll with output !
 URxvt*scrollTtyOutput: false
 
 ! scroll with shift+page up or mouse wheel !
