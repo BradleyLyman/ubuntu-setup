@@ -26,6 +26,8 @@ set ruler
 set shell=/bin/bash
 set background=dark
 colorscheme solarized
+set numberwidth=2
+set relativenumber
 
 " -------------------- "
 " --  Key Remapping -- "
