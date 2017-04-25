@@ -1,5 +1,6 @@
 xrdb ~/.Xresources
 
 xrandr --output VGA-1 --mode auto
+xcompmgr&
 
 exec xmonad

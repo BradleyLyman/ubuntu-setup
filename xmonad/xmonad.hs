@@ -1,5 +1,6 @@
 import XMonad
 import XMonad.Layout.Spacing
+import XMonad.Layout.Decoration
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Util.EZConfig
 
@@ -61,7 +62,7 @@ status = 20
 myFont = "-*-terminus-medium-*-*-*-*-160-*-*-*-*-*-*"
 addTopBar = noFrillsDeco shrinkText topBarTheme
 
-topBarTheme = def
+topBarTheme = defaultTheme
     { fontName = myFont
     , activeColor = active
     , inactiveColor = base03

@@ -28,3 +28,5 @@ sudo apt-get install rxvt-unicode-256color ttf-dejavu
 echo " -> install rofi"
 sudo apt-get install rofi
 
+echo " -> install xcompmgr"
+sudo apt-get install xcompmgr
