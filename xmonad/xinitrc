@@ -1,5 +1,5 @@
 xrdb ~/.Xresources
 
-xrandr --output VGA-1 --mode 2560x1600
+xrandr --output VGA-1 --mode auto
 
 exec xmonad
