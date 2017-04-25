@@ -1,21 +1,31 @@
 import XMonad
 import XMonad.Layout.Spacing
 import XMonad.Layout.NoFrillsDecoration
+import XMonad.Util.EZConfig
 
-main = xmonad def
+main = xmonad $ myConfig
+
+myKeymap = [ ("M-n", spawn myLauncher)
+           , ("M-b", spawn myBrowser)
+           ]
+
+myConfig = defaultConfig
     { terminal = "urxvt"
     , layoutHook = myLayoutHook
     , focusFollowsMouse = myFocusFollowsMouse
     , clickJustFocuses = myClickJustFocuses
     , borderWidth = myBorderWidth
+    , startupHook = return () >> checkKeymap myConfig myKeymap
     }
+    `additionalKeysP`
+    myKeymap
 
 myBorderWidth = 0
 myFocusFollowsMouse = False
 myClickJustFocuses = True
-myLayoutHook = addTopBar $ spacing 4 $ Tall 1 (3/100) (1/2)
-
-addTopBar = noFrillsDeco shrinkText topBarTheme
+myLayoutHook = addTopBar $ spacing gap $ Tall 1 (3/100) (1/2)
+myLauncher = "rofi -matching fuzzy -combi-modi window,run -show combi -modi combi"
+myBrowser = "google-chrome"
 
 -- Theme Definition --
 
@@ -49,9 +59,10 @@ prompt = 20
 status = 20
 
 myFont = "-*-terminus-medium-*-*-*-*-160-*-*-*-*-*-*"
+addTopBar = noFrillsDeco shrinkText topBarTheme
 
 topBarTheme = def
-    { fontName = "-*-terminus-medium-*-*-*-*-160-*-*-*-*-*-*"
+    { fontName = myFont
     , activeColor = active
     , inactiveColor = base03
     , urgentColor = activeWarn
@@ -63,5 +74,3 @@ topBarTheme = def
     , urgentTextColor = yellow
     , decoHeight = 10
     }
-
-
