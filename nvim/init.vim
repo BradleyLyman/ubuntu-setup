@@ -34,6 +34,8 @@ let mapleader = ","
 nmap <space> zz
 noremap ; :
 
+nnoremap <leader>w <C-w><C-w>
+
 " mappings for eclim shortcuts
 nnoremap <leader>i :JavaImport<CR>
 nnoremap <leader>c :JavaCorrect<CR>
