@@ -1,7 +1,7 @@
 xrdb ~/.Xresources
 
-setxkbmap -option caps:escape
-xrandr --output Virtual-1 --mode 2560x1600
+~/.xmonad/desktop_resolution.sh
+setxkbmap dvorak -option caps:escape
 xcompmgr&
 
 exec xmonad
