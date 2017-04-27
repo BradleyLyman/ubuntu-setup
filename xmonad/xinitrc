@@ -1,6 +1,7 @@
 xrdb ~/.Xresources
 
-xrandr --output VGA-1 --mode auto
+setxkbmap -option caps:escape
+xrandr --output Virtual-1 --mode 2560x1600
 xcompmgr&
 
 exec xmonad
