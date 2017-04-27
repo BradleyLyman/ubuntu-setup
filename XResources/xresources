@@ -101,11 +101,11 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-urxvt.font: xft:DejaVuSansMono:pixelsize=22
-urxvt.boldFont: xft:DejaVuSansMono:bold:pixelsize=22
+urxvt.font: xft:DejaVuSansMono:size=18
+urxvt.boldFont: xft:DejaVuSansMono:bold:size=18
 
-urxvt.italicFont: xft:DejaVuSansMono:italic:pixelsize=22
-urxvt.boldItalicFont: xft:DejaVuSansMono:bold:italic:pixelsize=22
+urxvt.italicFont: xft:DejaVuSansMono:italic:size=18
+urxvt.boldItalicFont: xft:DejaVuSansMono:bold:italic:size=18
 
 
 ! --------------------- !
