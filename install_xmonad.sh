@@ -8,9 +8,6 @@ mkdir ~/.xmonad
 echo " -> copy xmonad config"
 cp ./xmonad/xmonad.hs ~/.xmonad/xmonad.hs
 
-echo " -> copy resolution script"
-cp ./xmonad/desktop_resolution.sh ~/.xmonad/desktop_resolution.sh
-
 echo " -> recompile xmonad"
 xmonad --recompile
 
