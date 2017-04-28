@@ -119,7 +119,7 @@ URxvt*scrollBar_floating: true
 URxvt*scrollBar_right: true
 URxvt*scrollColor: S_base02
 URxvt*termName: xterm-256color
-URxvt*background: rgba:0000/2b00/3600/EE00
+URxvt*background: rgba:0000/2b00/3600/EF00
 
 ! dont scroll with output !
 URxvt*scrollTtyOutput: false
