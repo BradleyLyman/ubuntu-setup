@@ -7,6 +7,9 @@ call vundle#begin()
     Plugin 'Valloric/YouCompleteMe'
     Plugin 'altercation/vim-colors-solarized'
     Plugin 'scrooloose/nerdtree'
+
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
 call vundle#end()
 syntax off
 filetype plugin on
@@ -55,6 +58,12 @@ nnoremap <leader>d : bdelete<CR>
 
 " mappings for terminal mode
 tnoremap <Esc> <C-\><C-n>
+
+" -------------------- "
+" -- Airline Config -- "
+" -------------------- "
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
 " ----------------------------------- "
 " -- BEGIN JAVA PROJECT MANAGEMENT -- "
