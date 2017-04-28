@@ -45,4 +45,5 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 echo " -> install java"
 sudo apt-get install openjdk-8-jdk
 
-
+echo " -> install ctags"
+sudo apt-get install exuberant-ctags
