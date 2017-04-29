@@ -13,6 +13,7 @@ myKeymap = [ ("M-n", spawn myLauncher)
 myConfig = defaultConfig
     { terminal = "urxvt"
     , layoutHook = myLayoutHook
+    , modMask = myModMask
     , focusFollowsMouse = myFocusFollowsMouse
     , clickJustFocuses = myClickJustFocuses
     , borderWidth = myBorderWidth
@@ -21,6 +22,7 @@ myConfig = defaultConfig
     `additionalKeysP`
     myKeymap
 
+myModMask = mod4Mask
 myBorderWidth = 0
 myFocusFollowsMouse = False
 myClickJustFocuses = True

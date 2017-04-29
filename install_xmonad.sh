@@ -14,6 +14,9 @@ xmonad --recompile
 echo " -> copy xinit"
 cp ./xmonad/xinitrc ~/.xinitrc
 
+echo " -> copy update keyboard"
+cp ./xmonad/set_custom_hypers.sh ~/.config/mybin/
+
 echo " -> copy xresources"
 cp ./XResources/xresources ~/.Xresources
 
