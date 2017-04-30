@@ -4,12 +4,15 @@ import XMonad.Layout.Decoration
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Util.EZConfig
 
+import qualified XMonad.StackSet as W
+
 main = xmonad $ myConfig
 
 myKeymap = [ ("M-n", spawn myLauncher)
            , ("M-b", spawn myBrowser)
            , ("M-<Backspace>", kill)
            , ("M-<Return>", spawn myTerminal)
+           , ("M-m", windows W.swapMaster)
            ]
 
 myConfig = defaultConfig
