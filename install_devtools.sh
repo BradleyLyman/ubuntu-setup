@@ -47,3 +47,6 @@ sudo apt-get install openjdk-8-jdk
 
 echo " -> install ctags"
 sudo apt-get install exuberant-ctags
+
+echo " -> install tmux"
+sudo apt-get install tmux
