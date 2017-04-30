@@ -10,8 +10,11 @@ call vundle#begin()
 
     Plugin 'vim-airline/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
+
+    Plugin 'vimwiki/vimwiki'
 call vundle#end()
-syntax off
+set nocompatible
+syntax on
 filetype plugin on
 
 " --------------------------- "
