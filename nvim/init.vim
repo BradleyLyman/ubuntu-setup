@@ -12,6 +12,8 @@ call vundle#begin()
     Plugin 'vim-airline/vim-airline-themes'
 
     Plugin 'vimwiki/vimwiki'
+
+    Plugin 'epeli/slimux'
 call vundle#end()
 set nocompatible
 syntax on
@@ -55,12 +57,19 @@ nnoremap <leader>t <C-t>
 
 " mappings for file-explore
 nnoremap <leader>e :NERDTreeToggle<CR>
-nnoremap <leader>b :buffers<CR>
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>d : bdelete<CR>
 
 " mappings for terminal mode
 tnoremap <Esc> <C-\><C-n>
+
+" -------------------- "
+" -- Slimux Keymaps -- "
+" -------------------- "
+
+nnoremap <leader>s :SlimuxREPLSendLine<CR>
+vnoremap <leader>s :SlimuxREPLSendSelection<CR>
+nnoremap <leader>b :SlimuxREPLSendBuffer<CR>
 
 " -------------------- "
 " -- Airline Config -- "
