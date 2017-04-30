@@ -8,10 +8,12 @@ main = xmonad $ myConfig
 
 myKeymap = [ ("M-n", spawn myLauncher)
            , ("M-b", spawn myBrowser)
+           , ("M-<Backspace>", kill)
+           , ("M-<Return>", spawn myTerminal)
            ]
 
 myConfig = defaultConfig
-    { terminal = "urxvt"
+    { terminal = myTerminal
     , layoutHook = myLayoutHook
     , modMask = myModMask
     , focusFollowsMouse = myFocusFollowsMouse
@@ -22,6 +24,7 @@ myConfig = defaultConfig
     `additionalKeysP`
     myKeymap
 
+myTerminal = "urxvt"
 myModMask = mod4Mask
 myBorderWidth = 0
 myFocusFollowsMouse = False
