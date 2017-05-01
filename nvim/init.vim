@@ -16,13 +16,12 @@ call vundle#begin()
     Plugin 'epeli/slimux'
 call vundle#end()
 set nocompatible
-syntax on
-filetype plugin on
+syntax off
+filetype plugin indent on
 
 " --------------------------- "
 " -- GENERAL CONFIGURATION -- "
 " --------------------------- "
-filetype off
 set mouse=v
 set clipboard+=unnamedplus
 set expandtab
