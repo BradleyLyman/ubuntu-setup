@@ -94,7 +94,6 @@
 ! -- FONT SETTINGS -- !
 ! ------------------- !
 
-Xft.dpi: 180
 Xft.autohint: 1
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull

@@ -9,4 +9,8 @@ cp urxvt-resize-font/resize-font ~/.urxvt/ext
 rm -rf urxvt-resize-font
 
 cp ./XResources/xresources ~/.Xresources
+
+read -p "enter monitor dpi: " dpi
+echo "Xft.dpi: $dpi" >> ~/.Xresources
+
 xrdb ~/.Xresources

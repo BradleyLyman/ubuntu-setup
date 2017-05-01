@@ -17,12 +17,6 @@ cp ./xmonad/xinitrc ~/.xinitrc
 echo " -> copy update keyboard"
 cp ./xmonad/set_custom_hypers.sh ~/.config/mybin/
 
-echo " -> copy xresources"
-cp ./XResources/xresources ~/.Xresources
-
-echo " -> reload resources"
-xrdb ~/.Xresources
-
 echo " -> install urxvt"
 sudo apt-get install rxvt-unicode-256color ttf-dejavu
 
@@ -39,3 +33,9 @@ sudo apt-get install feh
 
 echo " -> copy background image"
 cp ./background.jpg ~/.config/background.jpg
+
+echo " -> install xcape"
+sudo apt-get install xcape
+
+echo " -> install xresources"
+./install_xresources.sh
