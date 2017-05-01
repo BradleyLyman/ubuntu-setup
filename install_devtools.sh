@@ -50,3 +50,6 @@ sudo apt-get install exuberant-ctags
 
 echo " -> install tmux"
 sudo apt-get install tmux
+
+echo " -> install inotify tools"
+sudo apt-get install inotify-tools
