@@ -15,7 +15,7 @@ xkb_keymap {
  xkb_keycodes  { include "evdev+aliases(qwerty)" };
  xkb_types     { include "complete" };
  xkb_compat    { include "complete" };
- xkb_symbols   { include "pc+us(dvorak)+inet(evdev)+terminate(ctrl_alt_bksp)+custom(hypers)" };
+ xkb_symbols   { include "pc+us(dvorak)+inet(evdev)+capslock(escape)+terminate(ctrl_alt_bksp)+custom(hypers)" };
  xkb_geometry  { include "kinesis(model100)" };
 };
 EOF
