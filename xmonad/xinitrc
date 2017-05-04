@@ -3,6 +3,5 @@ xrdb ~/.Xresources
 feh --bg-fill ~/.config/background.jpg
 vmware-user-suid-wrapper
 ~/.config/mybin/set_custom_hypers.sh
-xcompmgr&
 
 exec xmonad
