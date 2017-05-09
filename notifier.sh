@@ -1,35 +1,79 @@
 #!/bin/bash
 
-check_process() {
+info() {
+    # output message with blue text
+    echo -e " ->\e[34m $1\e[39m"
+}
+
+warn() {
+    # output message with yellow text
+    echo -e " ->\e[33m Warn: $1\e[39m"
+}
+
+error() {
+    # output message with magenta text
+    echo -e " ->\e[35m Error: $1\e[39m"
+}
+
+help() {
+    info "Usage: notifier.sh <directory to watch> <command to execute on change>"
+    exit
+}
+
+WATCH_DIR=$1
+CMD=$2
+
+if [[ $WATCH_DIR ]]; then
+    info "watching $WATCH_DIR"
+else
+    error "Please enter a watch directory!"
+    help
+fi
+
+if [[ $CMD ]]; then
+    info "execute $CMD on change"
+else
+    error "Please enter a command to execute when files change!"
+    help
+fi
+
+# This method checks if the process with the provided
+# PID is alive. It handles the case when PID is empty or not passed
+# by returning 0.
+is_process_alive() {
     if [[ $1 ]]; then
         if [[ `ps -A | grep $1` ]]; then
-            echo " ---> worker $1 is alive!"
+            warn "worker $1 is alive!"
             return 1;
         else
-            echo " ---> worker $1 is already dead"
+            warn "worker $1 is already dead"
             return 0;
         fi
     else
-        echo " ---> worker doesn't exist"
+        warn "worker doesn't exist"
         return 0;
     fi
 }
 
+# This is the part where we wait on events and update
 EVENTS="modify,attrib,close_write,move,create,delete"
 
 while true
 do
-    echo " -> waiting for events in $1"
-    inotifywait -r -e $EVENTS $1 2>/dev/null
+    info "waiting for events in $1"
+    file=`inotifywait -r -e $EVENTS --format "%f" $1 2>/dev/null`
 
-    echo " -> is the last worker alive?"
-    check_process $pid
+    info "file changed: $file"
+
+    info "is the last worker alive?"
+    is_process_alive $pid
     if [ $? -eq 1 ]; then
-        echo " -> kill worker $pid"
+        warn "kill worker with pid: $pid"
         `kill -9 $pid`
     fi
 
-    echo " -> evaluate notify script"
+    info "evaluate notify script"
     eval $2& pid=$!
-    echo " -> task started with pid $pid"
+    info "task started with pid $pid"
 done 2>/dev/null
+
