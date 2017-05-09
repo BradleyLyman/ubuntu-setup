@@ -55,25 +55,35 @@ is_process_alive() {
     fi
 }
 
+kill_process_and_children() {
+    pid=$1
+
+    is_process_alive $pid
+    if [ $? -eq 1 ]; then
+        for i in `ps -ef| awk '$3 == '$pid' { print $2 }'`
+        do
+            warn "killing $i"
+            kill $i
+        done
+        warn "killing $pid"
+        kill $pid
+    fi
+}
+
 # This is the part where we wait on events and update
 EVENTS="modify,attrib,close_write,move,create,delete"
 
 while true
 do
     info "waiting for events in $1"
-    file=`inotifywait -r -e $EVENTS --format "%f" $1 2>/dev/null`
+    file=`inotifywait -r -e $EVENTS --format "%e %f" $1 2>/dev/null`
 
     info "file changed: $file"
 
-    info "is the last worker alive?"
-    is_process_alive $pid
-    if [ $? -eq 1 ]; then
-        warn "kill worker with pid: $pid"
-        `kill -9 $pid`
-    fi
+    kill_process_and_children $pid
 
     info "evaluate notify script"
-    eval $2& pid=$!
+    $2 $file& pid=$!
     info "task started with pid $pid"
 done 2>/dev/null
 
