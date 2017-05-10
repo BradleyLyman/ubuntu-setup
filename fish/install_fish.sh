@@ -25,3 +25,6 @@ mkdir -p ~/.config/fish
 echo " -> update fish config"
 cp $RT/config.fish ~/.config/fish/config.fish
 
+echo " -> copy fish functions"
+cp -r $RT/functions ~/.config/fish/functions
+
