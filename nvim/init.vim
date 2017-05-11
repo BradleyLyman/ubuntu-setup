@@ -16,8 +16,8 @@ call vundle#begin()
     Plugin 'epeli/slimux'
 call vundle#end()
 set nocompatible
-syntax off
 filetype plugin indent on
+syntax on
 
 " --------------------------- "
 " -- GENERAL CONFIGURATION -- "
@@ -61,6 +61,7 @@ nnoremap <leader>d : bdelete<CR>
 " mappings for terminal mode
 tnoremap <Esc> <C-\><C-n>
 
+
 " --------------------------- "
 " -- NERDTreeConfiguration -- "
 " --------------------------- "
@@ -85,6 +86,11 @@ let g:airline_powerline_fonts = 1
 " ----------------------------------- "
 " -- BEGIN JAVA PROJECT MANAGEMENT -- "
 " ----------------------------------- "
+
+augroup javagrp
+    autocmd!
+    autocmd FileType java :set syntax=OFF
+augroup END
 
 let g:EclimCompletionMethod = 'omnifunc'
 
