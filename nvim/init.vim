@@ -90,6 +90,7 @@ let g:airline_powerline_fonts = 1
 augroup javagrp
     autocmd!
     autocmd FileType java :set syntax=OFF
+    autocmd FileType java :iabbrev cc Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 augroup END
 
 let g:EclimCompletionMethod = 'omnifunc'
