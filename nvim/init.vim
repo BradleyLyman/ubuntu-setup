@@ -55,12 +55,18 @@ nnoremap <leader>f <C-]>
 nnoremap <leader>t <C-t>
 
 " mappings for file-explore
-nnoremap <leader>e :NERDTreeToggle<CR>
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>d : bdelete<CR>
 
 " mappings for terminal mode
 tnoremap <Esc> <C-\><C-n>
+
+" --------------------------- "
+" -- NERDTreeConfiguration -- "
+" --------------------------- "
+nnoremap <leader>e :NERDTreeToggle<CR>
+let g:NERDTreeWinSize=80
+
 
 " -------------------- "
 " -- Slimux Keymaps -- "
