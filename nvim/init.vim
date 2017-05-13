@@ -37,6 +37,7 @@ colorscheme solarized
 set numberwidth=2
 set relativenumber
 
+
 " -------------------- "
 " --  Key Remapping -- "
 " -------------------- "
@@ -77,11 +78,19 @@ nnoremap <leader>s :SlimuxREPLSendLine<CR>
 vnoremap <leader>s :SlimuxREPLSendSelection<CR>
 nnoremap <leader>b :SlimuxREPLSendBuffer<CR>
 
+
 " -------------------- "
 " -- Airline Config -- "
 " -------------------- "
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+
+
+" ---------------------------------- "
+" -- BEGIN C++ PROJECT MANAGEMENT -- "
+" ---------------------------------- "
+let g:ycm_global_ycm_extra_conf = '/home/brlyman/.config/nvim/ycm_extra_conf.py'
+
 
 " ----------------------------------- "
 " -- BEGIN JAVA PROJECT MANAGEMENT -- "

@@ -36,6 +36,10 @@ cp -r ./nvim/* ~/.config/nvim/
 ln -s ~/.config/nvim/init.vim
 ln -s ~/.config/nvim ~/.vim
 
+echo " -> install python-Levenshtein"
+pip3 install python-Levenshtein
+pip install python-Levenshtein
+
 echo " -> install Vundle"
 mkdir -p ~/.config/nvim/bundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
