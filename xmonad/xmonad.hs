@@ -23,6 +23,7 @@ myConfig = defaultConfig
     , clickJustFocuses = myClickJustFocuses
     , borderWidth = myBorderWidth
     , startupHook = return () >> checkKeymap myConfig myKeymap
+    , manageHook = myManageHook <+> manageHook defaultConfig
     }
     `additionalKeysP`
     myKeymap
@@ -35,6 +36,9 @@ myClickJustFocuses = True
 myLayoutHook = addTopBar $ spacing gap $ Tall 1 (3/100) (1/2)
 myLauncher = "rofi -matching fuzzy -combi-modi window,run -show combi -modi combi"
 myBrowser = "google-chrome"
+myManageHook = composeAll
+    [ title =? "tetra-creative" --> doFloat
+    ]
 
 -- Theme Definition --
 
