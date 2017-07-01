@@ -76,14 +76,27 @@ EVENTS="modify,attrib,close_write,move,create,delete"
 while true
 do
     info "waiting for events in $1"
-    file=`inotifywait -r -e $EVENTS --format "%w" $1 2>/dev/null`
+    dir_and_file=`inotifywait -r -e $EVENTS --format "%w%f" $1 2>/dev/null`
 
-    info "file changed: $file"
+    # Get just the file name from the file/directory combo
+    file=`echo $dir_and_file | grep -oE '[^/]*$'`
 
-    kill_process_and_children $pid
+    # Select only file names which include at least a single letter or '.'
+    filteredfile=`echo $file | grep -E "[a-zA-Z.]"`
+    if [[ $filteredfile ]]; then
+        info "file changed: $file"
 
-    info "evaluate notify script"
-    $2 $file& pid=$!
-    info "task started with pid $pid"
+        kill_process_and_children $pid
+
+        info "evaluate notify script"
+        $2 $file& pid=$!
+        info "task started with pid $pid"
+    else
+        # for some reason nvim seems to create temporary files with numbers for names
+        # This prevents those temporary files from cluttering up our scripts
+        warn "skipping work for file named $file"
+    fi
+
+
 done 2>/dev/null
 
