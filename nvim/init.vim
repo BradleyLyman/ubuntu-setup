@@ -11,8 +11,6 @@ call vundle#begin()
     Plugin 'vim-airline/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
 
-    Plugin 'vimwiki/vimwiki'
-
     Plugin 'epeli/slimux'
 call vundle#end()
 set nocompatible
