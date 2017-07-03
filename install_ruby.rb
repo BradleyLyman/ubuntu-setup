@@ -4,31 +4,25 @@ require_relative './ruby/brlyman/log.rb'
 
 $default_logger = Logger.new "install_ruby"
 
-$installrb = 'install.rb'
 def each_subpackage
-    Dir.glob("*/#{$installrb}").each do |package|
-        log_block package do
-            path = File.dirname(package)
+    Dir.glob("*/install.rb").each do |package|
+        info "---"
+        info "---"
+        path = File.dirname(package)
+        log_block path do
+            info "*- BEGIN -*"
             yield(path, package)
+            info "*- DONE -*"
         end
     end
 end
 
-def install_subpackages
+def invoke_subpackages
     info "install my other packages"
     each_subpackage do |path, package|
-        info "execute '#{package}'"
-        system "cd #{path}; ./#{$installrb}"
-        info "done"
-    end
-end
-
-def uninstall_subpackages
-    info "uninstall my other packages"
-    each_subpackage do |path, package|
-        info "execute '#{package} -u'"
-        system "cd #{path}; ./#{$installrb} -u"
-        info "done"
+        Dir.chdir path do
+            require_relative package
+        end
     end
 end
 
@@ -45,8 +39,7 @@ def install
 end
 
 if ARGV.first == "-u"
-    uninstall_subpackages
+    invoke_subpackages
 else
-    install
-    install_subpackages
+    invoke_subpackages
 end
