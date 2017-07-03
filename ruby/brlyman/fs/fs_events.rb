@@ -1,4 +1,4 @@
-require './log.rb'
+require_relative '../log.rb'
 require "rb-inotify"
 
 module FS
@@ -108,7 +108,7 @@ module FS
                     e.absolute_name == event.absolute_name
                 end
                 if uevent
-                    warn "Merging events on #{uevent.absolute_name}"
+                    info "Merging events on #{uevent.absolute_name}"
                     uevent.add_flags! event.flags
                 else
                     unique_event_list << event

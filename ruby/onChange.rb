@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require './ruby/fs_events.rb'
+require_relative './brlyman/fs/fs_events.rb'
 
 $default_logger = Logger.new "onChange"
 
