@@ -1,4 +1,0 @@
-cvt w h refresh
-xrandr --newmode *outpu from above*
-xrandr --addmode $output_name $modestring
-xrandr --output $output_name --mode $modestring
