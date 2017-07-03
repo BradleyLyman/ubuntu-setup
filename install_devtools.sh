@@ -44,8 +44,6 @@ echo " -> install Vundle"
 mkdir -p ~/.config/nvim/bundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-./fish/install_fish.sh `pwd`
-
 echo " -> install java"
 sudo apt-get install openjdk-8-jdk
 
