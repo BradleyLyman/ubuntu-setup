@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#install ttf-dejavu
 echo "  -> get powerline fonts"
 git clone https://github.com/powerline/fonts
 

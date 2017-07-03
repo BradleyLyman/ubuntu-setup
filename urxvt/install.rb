@@ -3,6 +3,9 @@
 require_relative '../ruby/brlyman/log.rb'
 
 def install
+    info "install urxvt"
+    system "sudo apt-get install rxvt-unicode-256color"
+
     log_block "resize_font_ext" do
         info "**BEGIN**"
         info "clone ext"
