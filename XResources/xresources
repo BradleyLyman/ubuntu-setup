@@ -133,4 +133,4 @@ URxvt*scrollTtyKeypress: true
 URxvt*depth: 32
 
 urxvt.perl-ext-common: default,resize-font
-
+Xft.dpi: 109
