@@ -2,88 +2,69 @@
 
 require './ruby/fs_events.rb'
 
-def help
-    info "Usage: onChange <dir> <cmd>"
-    info "    <dir> should be the directory to watch"
-    info "    <cmd> should be the command to execute on each change"
-end
-
-def parse_dir_from(args)
-    dir = args.first
-    if dir
-        dir
-    else
-        error "Missing <dir> argument"
-        nil
+class RestartableEventProcess
+    def self.with_cmd(cmd)
+        RestartableEventProcess.new cmd
     end
-end
 
-def validate_dir(dir)
-    if !dir
-        nil
-    elsif File.exists? dir
-        dir
-    else
-        error "File/Directory #{dir} does not exist!"
-        nil
+    def initialize(cmd)
+        @cmd = cmd
+        @started = false
+        @pid = 0
     end
-end
 
-def parse_cmd_from(args)
-    cmd = args[1]
-    if cmd
-        cmd
-    else
-        error "Missing <cmd> argument"
-        nil
+    def restart(event)
+        if @started
+            killProcess
+        end
+        @pid = Process.spawn "#{@cmd} #{event.absolute_name}"
+        Process.detach @pid
+        @started = true
+        info "Started process #{@pid}"
     end
-end
 
-def killprocess(pid)
-    begin
-        Process.kill 9,pid
-        true
-    rescue Errno::ESRCH
-        false
+    private
+
+    def killProcess
+        warn "Killing process #{@pid}"
+        begin
+            Process.kill 9, @pid
+        rescue Errno::ESRCH
+            warn "Process already dead"
+        end
     end
 end
 
 # program entrypoint
-def main(args)
-    dir = validate_dir parse_dir_from args
-    cmd = parse_cmd_from args
-    if !dir || !cmd
-        help
-        exit
-    end
+def main(dir, cmd)
+    info "Setup '#{cmd}' to execute on changes to '#{dir}'"
 
-    info "Setup watch for #{dir}"
+    event_handler = RestartableEventProcess.with_cmd cmd
 
-    mydir = NonTemporaryEvents
+    directory_events = NonTemporaryEvents
         .with_source UniqueEvents
         .with_source AllDirectoryEvents
         .forDirectory dir
 
-    # TODO clean up process management and remove weird looping construct
-    mydir.wait_for_events.each do |event|
-        info "%{name} triggered events %{flags}" % {
-            name: event.absolute_name,
-            flags: event.flags
-        }
-    end
-    pid = Process.spawn cmd
-
     while true do
-        mydir.wait_for_events.each do |event|
+        events = directory_events.wait_for_events
+        events.each do |event|
             info "%{name} triggered events %{flags}" % {
                 name: event.absolute_name,
                 flags: event.flags
             }
         end
-        killprocess pid
-        pid = Process.spawn cmd
+        event_handler.restart events.last
     end
 end
 
 # start program
-main(ARGV)
+begin
+    main(ARGV[0], ARGV[1])
+rescue => err
+    error err
+    # Print help
+    info "Usage: onChange <dir> <cmd>"
+    info "    <dir> should be the directory to watch"
+    info "    <cmd> should be the command to execute on each change"
+end

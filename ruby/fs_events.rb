@@ -40,8 +40,14 @@ class EventsDecorator
     end
 
     # Block and wait for a list of events
+    # Will call source.wait_for_events repeatedly if processing causes all events to be removed
+    # e.g. wait_for_events will always return a non-empty list
     def wait_for_events()
-        self.process @event_source.wait_for_events
+        processed = []
+        while processed.empty?
+            processed = self.process @event_source.wait_for_events
+        end
+        processed
     end
 
     def process(event_list)
@@ -114,26 +120,65 @@ end
 # This class represents all events on a directory or file
 class AllDirectoryEvents
     def self.forDirectory(file)
-        AllDirectoryEvents.new file
+        if not file
+            raise "Directory not specified"
+        end
+
+        if File.directory? file
+            AllDirectoryEvents.new file
+        else
+            AllFileEvents.forFile file
+        end
     end
 
     # use rb-inotify to create a inotify watch on the file/directory
     def initialize(file)
-        @events = []
+        @file = file
         @notifier = INotify::Notifier.new
 
         @notifier.watch(
-            file, :recursive, :modify, :close_write, :attrib, :moved_to, :create
-        ) do |event|
-            @events << event
-        end
+            file, :modify, :recursive, :close_write, :attrib, :moved_to, :create
+        )
     end
 
     # gather all events and map to my event
     def wait_for_events()
-        @events.clear
-        @notifier.process
-        @events.map {|event| Event.from_inotify event}
+        @notifier
+            .read_events
+            .map {|event| Event.from_inotify event}
+    end
+end
+
+class AllFileEvents
+    def self.forFile(file)
+        if not file
+            raise "File not specified"
+        end
+        AllFileEvents.new file
+    end
+
+    # use rb-inotify to create a inotify watch on the file/directory
+    def initialize(file)
+        @file = file
+        @notifier = INotify::Notifier.new
+        set_watch
+    end
+
+    # gather all events and map to my event
+    def wait_for_events()
+        events = @notifier
+            .read_events
+            .map {|event| Event.from_inotify event}
+        set_watch
+        events
+    end
+
+    private
+
+    def set_watch
+        # it seems like inotify implicity uses :oneshot for files
+        # so we set it explicitly here and just reset the watch each time around
+        @notifier.watch @file, :modify, :close_write, :attrib, :moved_to, :oneshot
     end
 end
 
