@@ -2,6 +2,8 @@
 
 require './ruby/fs_events.rb'
 
+$default_logger = Logger.new "onChange"
+
 class RestartableEventProcess
     def self.with_cmd(cmd)
         RestartableEventProcess.new cmd
@@ -20,7 +22,7 @@ class RestartableEventProcess
         @pid = Process.spawn "#{@cmd} #{event.absolute_name}"
         Process.detach @pid
         @started = true
-        info "Started process #{@pid}"
+       info "Started process #{@pid}"
     end
 
     private
@@ -41,19 +43,20 @@ def main(dir, cmd)
 
     event_handler = RestartableEventProcess.with_cmd cmd
 
-    directory_events = NonTemporaryEvents
-        .with_source UniqueEvents
-        .with_source AllDirectoryEvents
+    directory_events = FS::NonTemporaryEvents
+        .with_source FS::UniqueEvents
+        .with_source FS::AllDirectoryEvents
         .forDirectory dir
 
     while true do
-        events = directory_events.wait_for_events
-        events.each do |event|
-            info "%{name} triggered events %{flags}" % {
-                name: event.absolute_name,
-                flags: event.flags
-            }
+        events = log_block "wait_for_events" do
+            directory_events.wait_for_events
         end
+
+        log_block "list_events" do
+            events.each {|event| info "#{event.absolute_name} triggered #{event.flags}"}
+        end
+
         event_handler.restart events.last
     end
 end
@@ -68,3 +71,4 @@ rescue => err
     info "    <dir> should be the directory to watch"
     info "    <cmd> should be the command to execute on each change"
 end
+
