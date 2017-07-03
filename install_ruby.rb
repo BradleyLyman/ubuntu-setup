@@ -26,20 +26,11 @@ def invoke_subpackages
     end
 end
 
-def install
-    info "install ruby-dev"
-    system "sudo apt-get -y install ruby-dev"
-
-    info "install rb-inotify"
-    system "sudo gem install rb-inotify"
-
-    info "install my ruby scripts"
-    system "mkdir -p ~/.config/mybin"
-    system "cp -r ./ruby/* ~/.config/mybin"
-end
-
 if ARGV.first == "-u"
     invoke_subpackages
 else
+    info "make mybin"
+    system "mkdir -p ~/.config/mybin"
+
     invoke_subpackages
 end
