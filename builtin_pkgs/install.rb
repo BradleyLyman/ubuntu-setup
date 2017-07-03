@@ -6,12 +6,12 @@ $packages = "htop cmake git openjdk-8-jdk ctags tmux "\
             "exuberant-ctags inotify-tools"
 
 def install
-    info "install my tools"
+    info "install #{$packages}"
     system "sudo apt-get install #{$packages}"
 end
 
 def uninstall
-    info "remove my tools"
+    info "remove #{$packages}"
     system "sudo apt-get remove --purge #{$packages}"
 end
 
