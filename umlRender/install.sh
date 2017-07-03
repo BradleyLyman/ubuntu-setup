@@ -18,3 +18,5 @@ cp ./plantuml.jar ~/.config/mybin
 cp ./autouml ~/.config/mybin
 
 info "done"
+
+
