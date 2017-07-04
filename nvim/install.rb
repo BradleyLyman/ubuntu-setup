@@ -41,7 +41,7 @@ def install
     end
 
     info "symlink old .vim dir"
-    system "ln -s ~/.config/nvim .vim"
+    system "ln -s ~/.config/nvim ~/.vim"
 
     info "copy init.vim"
     system "cp ./init.vim ~/.config/nvim/init.vim"
