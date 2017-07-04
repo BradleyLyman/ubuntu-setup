@@ -39,6 +39,12 @@ def install
         system "mkdir -p ~/.config/nvim/bundle"
         system "git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
     end
+
+    info "symlink old .vim dir"
+    system "ln -s ~/.config/nvim .vim"
+
+    info "copy init.vim"
+    system "cp ./init.vim ~/.config/nvim/init.vim"
 end
 
 def uninstall
