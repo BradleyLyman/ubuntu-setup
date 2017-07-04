@@ -5,7 +5,7 @@ require_relative './ruby/brlyman/log.rb'
 $default_logger = Logger.new "install"
 
 def each_subpackage
-    Dir.glob("**/install.rb").each do |package|
+    Dir.glob("**/install.rb").sort.reverse.each do |package|
         info "---"
         info "---"
         path = File.dirname(package)
