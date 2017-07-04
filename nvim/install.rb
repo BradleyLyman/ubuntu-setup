@@ -75,6 +75,12 @@ def uninstall
         system "sudo update-alternatives --config editor"
         info "**DONE**"
     end
+
+    info "remove symlink to old .vim dir"
+    system "rm .vim"
+
+    info "remove init.vim"
+    system "rm ~/.config/nvim/init.vim"
 end
 
 if ARGV.first == "-u"
