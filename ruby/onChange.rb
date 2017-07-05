@@ -38,14 +38,15 @@ class RestartableEventProcess
 end
 
 # program entrypoint
-def main(dir, cmd)
-    info "Setup '#{cmd}' to execute on changes to '#{dir}'"
+def main(cmd, dirs)
+    info "Setup '#{cmd}' to execute on changes to '#{dirs}'"
 
     event_handler = RestartableEventProcess.with_cmd cmd
 
     directory_events = FS::NonTemporaryEvents
         .with_source FS::UniqueEvents
-        .with_source FS::all_events_for_path dir
+        .with_source FS::AllPathEvents
+        .for_paths dirs
 
     while true do
         events = log_block "wait_for_events" do
@@ -62,12 +63,12 @@ end
 
 # start program
 begin
-    main(ARGV[0], ARGV[1])
+    main(ARGV[0], ARGV[1..-1])
 rescue => err
     error err
     # Print help
-    info "Usage: onChange <dir> <cmd>"
-    info "    <dir> should be the directory to watch"
+    info "Usage: onChange <cmd> <dir> (<dir2> <dir3> ...)"
     info "    <cmd> should be the command to execute on each change"
+    info "    <dir> should be the directory(s) to watch"
 end
 

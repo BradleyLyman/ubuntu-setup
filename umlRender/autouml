@@ -1,4 +1,4 @@
 #!/bin/bash
 
-onChange.rb $* uml
+onChange.rb uml $*
 

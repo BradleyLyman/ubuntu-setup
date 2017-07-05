@@ -118,71 +118,61 @@ module FS
         end
     end
 
-    # This class represents all events on a directory or file
-    class AllDirectoryEvents
-        def self.forDirectory(file)
-            if not file
-                raise "Directory not specified"
+    class AllPathEvents
+        def self.for_paths(paths)
+            events = AllPathEvents.new
+            paths.each do |path|
+                events.add_watch path
             end
-            AllDirectoryEvents.new file
+            events
         end
 
-        # use rb-inotify to create a inotify watch on the file/directory
-        def initialize(file)
-            @file = file
+        def initialize()
             @notifier = INotify::Notifier.new
-
-            @notifier.watch(
-                file, :modify, :recursive, :close_write, :attrib, :moved_to, :create
-            )
+            @files = []
         end
 
-        # gather all events and map to my event
-        def wait_for_events()
-            @notifier
-                .read_events
-                .map {|event| Event.from_inotify event}
-        end
-    end
-
-    class AllFileEvents
-        def self.forFile(file)
-            if not file
-                raise "File not specified"
+        def add_watch(path)
+            if File.directory? path
+                add_directory_watch path
+            else
+                add_file_watch path
             end
-            AllFileEvents.new file
         end
 
-        # use rb-inotify to create a inotify watch on the file/directory
-        def initialize(file)
-            @file = file
-            @notifier = INotify::Notifier.new
-            set_watch
-        end
-
-        # gather all events and map to my event
-        def wait_for_events()
+        def wait_for_events
             events = @notifier
                 .read_events
-                .map {|event| Event.from_inotify event}
-            set_watch
+                .map {|event| Event.from_inotify event }
+            update_file_watches events
             events
         end
 
         private
 
-        def set_watch
-            # it seems like inotify implicity uses :oneshot for files
-            # so we set it explicitly here and just reset the watch each time around
-            @notifier.watch @file, :modify, :close_write, :attrib, :moved_to, :oneshot
+        def add_directory_watch(dir)
+            @notifier.watch(
+                dir, :modify, :recursive, :close_write, :attrib, :moved_to, :create
+            )
         end
-    end
 
-    def all_events_for_path(path)
-        if File.directory? path
-            AllDirectoryEvents.forDirectory path
-        else
-            AllFileEvents.forFile path
+        def add_file_watch(file)
+            @notifier.watch file, :modify, :close_write, :attrib, :moved_to, :oneshot
+            @files << file
+        end
+
+        # For whatever reason, rb-inotify seams to always treat file-watches as :oneshot
+        # I explicitly mention it so that it doesn't get missed
+        # Here, after the events have fired I search for any of the files which have completed
+        # and reestablish the watches for those files
+        def update_file_watches(events)
+            events.map {|event| event.absolute_name}
+                  .uniq
+                  .each do |pathname|
+                if not File.directory? pathname and @files.include? pathname
+                    add_file_watch pathname
+                end
+            end
         end
     end
 end
