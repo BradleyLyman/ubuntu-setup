@@ -21,7 +21,9 @@ public class TurboRunner
             .replaceAll("./src/", "")
             .replaceAll("./tst/", "")
             .replaceAll("/", ".")
-            .replaceAll(".java", "");
+            .replaceAll(".java", "")
+            .replaceAll("Tests", "")
+            .replaceAll("Test", "");
     }
 
     private static Class[] tests_with_classname(final String name)
