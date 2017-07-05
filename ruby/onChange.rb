@@ -45,8 +45,7 @@ def main(dir, cmd)
 
     directory_events = FS::NonTemporaryEvents
         .with_source FS::UniqueEvents
-        .with_source FS::AllDirectoryEvents
-        .forDirectory dir
+        .with_source FS::all_events_for_path dir
 
     while true do
         events = log_block "wait_for_events" do

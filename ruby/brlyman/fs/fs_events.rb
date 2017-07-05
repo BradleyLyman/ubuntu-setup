@@ -124,12 +124,7 @@ module FS
             if not file
                 raise "Directory not specified"
             end
-
-            if File.directory? file
-                AllDirectoryEvents.new file
-            else
-                AllFileEvents.forFile file
-            end
+            AllDirectoryEvents.new file
         end
 
         # use rb-inotify to create a inotify watch on the file/directory
@@ -180,6 +175,14 @@ module FS
             # it seems like inotify implicity uses :oneshot for files
             # so we set it explicitly here and just reset the watch each time around
             @notifier.watch @file, :modify, :close_write, :attrib, :moved_to, :oneshot
+        end
+    end
+
+    def all_events_for_path(path)
+        if File.directory? path
+            AllDirectoryEvents.forDirectory path
+        else
+            AllFileEvents.forFile path
         end
     end
 end
