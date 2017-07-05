@@ -2,6 +2,11 @@
 
 require_relative '../ruby/brlyman/log.rb'
 
+def install_init_vim
+    info "copy init.vim"
+    system "cp ./init.vim ~/.config/nvim/init.vim"
+end
+
 def install
     info "remove vim"
     system "sudo apt-get remove --purge vim"
@@ -42,9 +47,6 @@ def install
 
     info "symlink old .vim dir"
     system "ln -s ~/.config/nvim ~/.vim"
-
-    info "copy init.vim"
-    system "cp ./init.vim ~/.config/nvim/init.vim"
 end
 
 def uninstall
@@ -85,7 +87,10 @@ end
 
 if ARGV.first == "-u"
     uninstall
+elsif ARGV.first == "-cfg"
+    install_init_vim
 else
     install
+    install_init_vim
 end
 
