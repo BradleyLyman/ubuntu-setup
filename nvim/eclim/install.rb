@@ -3,6 +3,9 @@
 require_relative '../../ruby/brlyman/log.rb'
 
 def install
+    info "install curl"
+    system "sudo apt-get install curl"
+
 	log_block "eclipse" do
 		info "download eclipse"
 		system "curl http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/"\
