@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p bin
+
 SOURCE=`find ./src -name '*.java'`
 TESTS=`find ./tst -name '*.java'`
 trap 'kill -TERM $PID' TERM INT
