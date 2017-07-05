@@ -16,7 +16,7 @@ public class FizzBuzzTest
         public class when_the_number_is_a_multiple_of_three
         {
             @Test
-            public void then_FizzBuzz_should_print_fizz()
+            public void then_FizzBuzz_should_print_fizz() throws Exception
             {
                 assertThat(fizzBuzz.print(3), is("fizz"));
             }
@@ -25,7 +25,7 @@ public class FizzBuzzTest
         public class when_the_number_is_a_multiple_of_five
         {
             @Test
-            public void then_FizzBuzz_should_print_buzz()
+            public void then_FizzBuzz_should_print_buzz() throws Exception
             {
                 assertThat(fizzBuzz.print(5), is("buzz"));
             }

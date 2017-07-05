@@ -40,12 +40,12 @@ public class TurboRunner
     {
         try
         {
-            log.info("Search for tests with name: " + name);
+            log.info("Search for: " + name);
             return Class.forName(name);
         }
         catch (Exception ex)
         {
-            log.warn("could not find class");
+            log.warn("Not found:  " + name);
             return null;
         }
     }

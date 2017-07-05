@@ -17,13 +17,20 @@ public class TurboListener extends RunListener
     public void
     testRunStarted(final Description description) throws Exception
     {
-        log.info("Begin Test Run");
+        log.info("begin test run");
     }
 
     public void
     testRunFinished(final Result result) throws Exception
     {
-        log.info("Test Run Completed");
+        if (result.getFailureCount() == 0)
+        {
+            log.info("test run success!");
+        }
+        else
+        {
+            log.error("test run failed");
+        }
     }
 
     public void
@@ -49,8 +56,8 @@ public class TurboListener extends RunListener
     public void
     testFinished(final Description description) throws Exception
     {
-        log.resetDepth();
         log.info("");
+        log.resetDepth();
     }
 
     public void

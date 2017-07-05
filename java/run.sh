@@ -1,4 +1,12 @@
-#!/usr/bin/fish
+#!/bin/bash
 
-javac -cp (cat cp) -d bin src/**/*.java tst/**/*.java
-java -cp (cat cp) com.TurboRunner $argv
+SOURCE=`find ./src -name '*.java'`
+TESTS=`find ./tst -name '*.java'`
+trap 'kill -TERM $PID' TERM INT
+javac -d bin $SOURCE $TESTS&
+PID=$!
+wait $PID
+trap - TERM INT
+wait $PID
+
+exec java com.TurboRunner $*
