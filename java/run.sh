@@ -11,4 +11,4 @@ wait $PID
 trap - TERM INT
 wait $PID
 
-exec java com.TurboRunner $*
+exec java brlyman.TurboRunner $*
