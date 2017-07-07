@@ -1,4 +1,4 @@
-package com;
+package brlyman;
 
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
