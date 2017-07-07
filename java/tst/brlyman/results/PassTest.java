@@ -15,8 +15,8 @@ public class PassTest
 {
     public class given_a_passed_test
     {
-		@SuppressWarnings("unchecked")
-		@Test
+        @SuppressWarnings("unchecked")
+        @Test
         public void then_print_should_output_the_test_result() throws Exception
         {
             pass.display(fakePrinter);

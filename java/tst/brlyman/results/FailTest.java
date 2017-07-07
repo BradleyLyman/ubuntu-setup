@@ -16,8 +16,8 @@ public class FailTest
 {
     public class give_a_failed_test
     {
-		@SuppressWarnings("unchecked")
-		@Test
+        @SuppressWarnings("unchecked")
+        @Test
         public void then_display_should_put_testname_in_infolog()
         {
             failedTest.display(fakePrinter);
