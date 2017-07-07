@@ -1,8 +1,4 @@
-package com;
-
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.stream.Collectors;
+package brlyman;
 
 import org.junit.runner.JUnitCore;
 
@@ -12,33 +8,29 @@ public class TurboRunner
     {
         JUnitCore core = new JUnitCore();
         core.addListener(new TurboListener(log));
-        core.run(tests_with_classname(cleaned_name(args[0])));
+        core.run(test_with_classname(cleaned_name(args[0])));
     }
 
-    private static String cleaned_name(final String raw_name)
+    static String cleaned_name(final String raw_name)
     {
         return raw_name
             .replaceAll("./src/", "")
+            .replaceAll("src/", "")
             .replaceAll("./tst/", "")
+            .replaceAll("tst/", "")
             .replaceAll("/", ".")
             .replaceAll(".java", "")
             .replaceAll("Tests", "")
-            .replaceAll("Test", "");
+            .replaceAll("Test", "")
+            + "Test";
     }
 
-    private static Class[] tests_with_classname(final String name)
+    private static Class<?>[] test_with_classname(final String name)
     {
-        return Arrays.asList(
-            name + "Test",
-            name + "Tests"
-        ).stream()
-            .map(TurboRunner::class_with_name)
-            .filter(Objects::nonNull)
-            .collect(Collectors.toList())
-            .toArray(new Class[0]);
+        return new Class<?>[] { class_with_name(name) };
     }
 
-    private static Class class_with_name(final String name)
+    private static Class<?> class_with_name(final String name)
     {
         try
         {

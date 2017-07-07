@@ -1,4 +1,4 @@
-package com.crap;
+package brlyman.crap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
