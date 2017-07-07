@@ -17,6 +17,12 @@ public class TurboRunnerTest
         @Test
         public void then_all_name_variants_should_be_resolved()
         {
+            // Test.java in src path? IDK, do what you want kid
+            assertFound("./src/brlyman/TurboRunnerTest.java", testClassName);
+            assertFound("src/brlyman/TurboRunnerTest.java", testClassName);
+            assertFound("brlyman/TurboRunnerTest.java", testClassName);
+
+            // normal classes in src
             assertFound("./src/brlyman/TurboRunner.java", testClassName);
             assertFound("src/brlyman/TurboRunner.java", testClassName);
             assertFound("brlyman/TurboRunner.java", testClassName);
@@ -28,17 +34,15 @@ public class TurboRunnerTest
         @Test
         public void then_all_singular_name_variants_should_be_resolved()
         {
+            // *Test.java in tst path
             assertFound("./tst/brlyman/TurboRunnerTest.java", testClassName);
             assertFound("tst/brlyman/TurboRunnerTest.java", testClassName);
             assertFound("brlyman/TurboRunnerTest.java", testClassName);
-        }
 
-        @Test
-        public void then_all_plural_name_variants_should_be_resolved()
-        {
-            assertFound("./tst/brlyman/TurboRunnerTests.java", testClassName);
-            assertFound("tst/brlyman/TurboRunnerTests.java", testClassName);
-            assertFound("brlyman/TurboRunnerTests.java", testClassName);
+            // Impls in tst path? sure, why not
+            assertFound("./tst/brlyman/TurboRunner.java", testClassName);
+            assertFound("tst/brlyman/TurboRunner.java", testClassName);
+            assertFound("brlyman/TurboRunner.java", testClassName);
         }
     }
 
@@ -46,8 +50,8 @@ public class TurboRunnerTest
     assertFound(final String filename, final String expectedTestName)
     {
         assertThat(
-            filename + " should resolve to " + expectedTestName,
-            TurboRunner.cleaned_name(filename),
+            "Invalid qualified name for '" + filename + "'",
+            TurboRunner.qualified_test_name(filename),
             is(equalTo(expectedTestName))
         );
     }

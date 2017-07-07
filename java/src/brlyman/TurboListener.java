@@ -63,7 +63,7 @@ public class TurboListener extends RunListener
     public void
     testFailure(final Failure failure) throws Exception
     {
-        log.error("test failed " + failure.getMessage());
+        log.error("test failed \n" + failure.getMessage());
         log.error("");
         log.resetDepth();
     }
