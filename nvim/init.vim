@@ -27,6 +27,7 @@ set tabstop=4
 set shiftwidth=4
 " remove trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :retab
 set ruler
 set shell=/bin/bash
 set background=dark
@@ -34,6 +35,7 @@ let g:solarized_termtrans=1
 colorscheme solarized
 set numberwidth=2
 set relativenumber
+set colorcolumn=80
 
 
 " -------------------- "
@@ -65,7 +67,7 @@ tnoremap <Esc> <C-\><C-n>
 " -- NERDTreeConfiguration -- "
 " --------------------------- "
 nnoremap <leader>e :NERDTreeToggle<CR>
-let g:NERDTreeWinSize=80
+let g:NERDTreeWinSize=75
 
 
 " -------------------- "
