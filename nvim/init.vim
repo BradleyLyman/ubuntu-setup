@@ -98,6 +98,9 @@ augroup javagrp
     autocmd!
     autocmd FileType java :set syntax=OFF
     autocmd FileType java :iabbrev cc Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    autocmd FileType java :iabbrev pc public class
+    autocmd FileType java :iabbrev pv public void
+    autocmd FileType java :iabbrev hcr @RunWith(HierarchicalContextRunner.class)
 augroup END
 
 let g:EclimCompletionMethod = 'omnifunc'
