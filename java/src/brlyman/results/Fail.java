@@ -2,15 +2,20 @@ package brlyman.results;
 
 public class Fail
 {
-    public Fail(final String testName)
+    public Fail(final String test_name, final String error_msg)
     {
-        this.testName = testName;
+        this.test_name = test_name;
+        this.error_msg = error_msg;
     }
 
     public void display(Printer printer)
     {
-        printer.block_indent(testName, () -> {});
+        printer.block_indent(test_name, () ->
+        {
+            printer.error(error_msg);
+        });
     }
 
-    private final String testName;
+    private final String test_name;
+    private final String error_msg;
 }

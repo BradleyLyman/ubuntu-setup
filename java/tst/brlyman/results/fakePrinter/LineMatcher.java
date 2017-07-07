@@ -23,16 +23,25 @@ public class LineMatcher
         private final int depth;
     }
 
-    public static LineMatcher line(final Indent indent, final String line)
+    public static LineMatcher info(final Indent indent, final String line)
     {
-        return new LineMatcher(new PrinterLine(line, indent.value()));
+        return new LineMatcher(
+            new PrinterLine(line, indent.value(), Type.INFO));
     }
 
+    public static LineMatcher error(final Indent indent, final String line)
+    {
+        return new LineMatcher(
+            new PrinterLine(line, indent.value(), Type.ERRR));
+    }
 
     @Override
     public void describeTo(final Description desc)
     {
-        desc.appendText("line with indent of ")
+        desc
+            .appendText("[")
+            .appendText(expectedLine.type.toString())
+            .appendText("] with indent of ")
             .appendValue(expectedLine.indent_level)
             .appendText(" and value '")
             .appendText(expectedLine.line)
@@ -60,6 +69,15 @@ public class LineMatcher
                 .appendText("actual log line is '")
                 .appendText(actualLine.line)
                 .appendText("'. ");
+            match = false;
+        }
+
+        if (!expectedLine.type.equals(actualLine.type))
+        {
+            mismatchDesc
+                .appendText("actual log is [")
+                .appendText(actualLine.type.toString())
+                .appendText("]. ");
             match = false;
         }
         return match;

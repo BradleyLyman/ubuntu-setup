@@ -16,31 +16,23 @@ public class FailTest
 {
     public class give_a_failed_test
     {
-        @Test
+		@SuppressWarnings("unchecked")
+		@Test
         public void then_display_should_put_testname_in_infolog()
         {
             failedTest.display(fakePrinter);
             assertThat(
-                fakePrinter.info_log,
+                fakePrinter.log_lines,
                 contains(
-                    line(Indent.None, TESTNAME)));
+                    info(Indent.None, TESTNAME),
+                    error(Indent.One, ERROR_MSG)));
         }
 
-        @Test
-        public void then_display_should_put_error_msg_in_errorlog()
-        {
-            failedTest.display(fakePrinter);
-            assertThat(
-                fakePrinter.error_log,
-                contains(
-                    line(Indent.One, ERROR_MSG)));
-        }
-
-        private Fail failedTest = new Fail(TESTNAME);
+        private Fail failedTest = new Fail(TESTNAME, ERROR_MSG);
     }
 
     private final FakePrinter fakePrinter = new FakePrinter();
 
     static private final String TESTNAME = "some_test_name";
-    static private final String ERROR_MSG = "some \n error \n message";
+    static private final String ERROR_MSG = "some error message";
 }

@@ -9,4 +9,5 @@ public class PrinterLine
 {
     public final String line;
     public final int indent_level;
+    public final Type type;
 }
