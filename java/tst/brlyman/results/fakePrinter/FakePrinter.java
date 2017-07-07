@@ -8,13 +8,19 @@ public class FakePrinter implements Printer
 {
     public FakePrinter()
     {
-        info_log = new ArrayList<>();
+        log_lines = new ArrayList<>();
     }
 
     @Override
     public void info(final String msg)
     {
-        info_log.add(new PrinterLine(msg, indent_level));
+        log_lines.add(new PrinterLine(msg, indent_level, Type.INFO));
+    }
+
+    @Override
+    public void error(final String msg)
+    {
+        log_lines.add(new PrinterLine(msg, indent_level, Type.ERRR));
     }
 
     @Override
@@ -26,6 +32,6 @@ public class FakePrinter implements Printer
         indent_level -= 1;
     }
 
-    public final List<PrinterLine> info_log;
+    public final List<PrinterLine> log_lines;
     private int indent_level = 0;
 }

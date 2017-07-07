@@ -21,10 +21,10 @@ public class PassTest
         {
             pass.display(fakePrinter);
             assertThat(
-                fakePrinter.info_log,
+                fakePrinter.log_lines,
                 contains(
-                    line(Indent.None, TESTNAME),
-                    line(Indent.One, "Done")));
+                    info(Indent.None, TESTNAME),
+                    info(Indent.One, "Done")));
         }
 
         private Pass pass = new Pass(TESTNAME);

@@ -8,5 +8,6 @@ public interface Printer
     }
 
     void info(String msg);
+    void error(String msg);
     void block_indent(String block_name, IndentBlock block);
 }
