@@ -8,7 +8,8 @@ public class LineMatcher
     public enum Indent
     {
         None(0),
-        One(1);
+        One(1),
+        Two(2);
 
         public int value()
         {
