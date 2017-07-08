@@ -1,6 +1,6 @@
 package brlyman.results;
 
-public class Fail
+public class Fail implements Result
 {
     public Fail(final String test_name, final String error_msg)
     {
@@ -8,6 +8,7 @@ public class Fail
         this.error_msg = error_msg;
     }
 
+    @Override
     public void display(Printer printer)
     {
         printer.block_indent(test_name, () ->
