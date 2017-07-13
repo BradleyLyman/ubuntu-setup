@@ -21,20 +21,18 @@ public class Context implements Result
     }
 
     @Override
-    public void display(Printer printer)
+    public String message()
     {
-        printer.block_indent(contextName, () ->
-        {
-            results.forEach((result) -> result.display(printer));
-        });
+        return null;
     }
 
-    public void getOrCreate(final Result resultToAdd)
+    @Override
+    public void apply(Process process)
     {
-        results.stream()
-            .filter((result) -> resultToAdd.name() == result.name())
-            .findFirst();
-
+        process.forContext(this, () ->
+        {
+            results.forEach((result) -> result.apply(process));
+        });
     }
 
     private List<Result> results;

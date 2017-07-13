@@ -17,12 +17,15 @@ public class Pass implements Result
     }
 
     @Override
-    public void display(final Printer printer)
+    public String message()
     {
-        printer.block_indent(test_name, () ->
-        {
-            printer.info("Done");
-        });
+        return "Done";
+    }
+
+    @Override
+    public void apply(Process process)
+    {
+        process.forPass(this);
     }
 
     private final String test_name;
