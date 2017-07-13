@@ -9,6 +9,12 @@ public class Fail implements Result
     }
 
     @Override
+    public String name()
+    {
+        return test_name;
+    }
+
+    @Override
     public void display(Printer printer)
     {
         printer.block_indent(test_name, () ->

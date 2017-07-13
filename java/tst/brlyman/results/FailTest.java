@@ -14,7 +14,7 @@ import brlyman.results.fakePrinter.*;
 @RunWith(HierarchicalContextRunner.class)
 public class FailTest
 {
-    public class give_a_failed_test
+    public class given_a_failed_test
     {
         @SuppressWarnings("unchecked")
         @Test
