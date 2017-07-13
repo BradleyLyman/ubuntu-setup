@@ -6,4 +6,5 @@ package brlyman.results;
 public interface Result
 {
     void display(Printer printer);
+    String name();
 }

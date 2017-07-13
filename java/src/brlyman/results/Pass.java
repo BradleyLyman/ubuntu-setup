@@ -11,6 +11,12 @@ public class Pass implements Result
     }
 
     @Override
+    public String name()
+    {
+        return test_name;
+    }
+
+    @Override
     public void display(final Printer printer)
     {
         printer.block_indent(test_name, () ->
