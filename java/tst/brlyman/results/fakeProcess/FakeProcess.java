@@ -22,6 +22,12 @@ public class FakeProcess implements Process
         lastProcessed = Type.Fail;
     }
 
+    @Override
+    public void forContext(final Context context, Runnable runnable)
+    {
+        lastProcessed = Type.Context;
+    }
+
     public Type lastProcessed()
     {
         return lastProcessed;
