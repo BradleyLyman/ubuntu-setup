@@ -5,6 +5,7 @@ package brlyman.results;
  */
 public interface Result
 {
-    void display(Printer printer);
     String name();
+    String message();
+    void apply(Process process);
 }

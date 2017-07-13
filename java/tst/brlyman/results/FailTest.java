@@ -2,37 +2,43 @@ package brlyman.results;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static brlyman.results.fakePrinter.LineMatcher.*;
 
 import org.junit.*;
 import org.junit.runner.*;
 
+import brlyman.results.fakeProcess.FakeProcess;
+import brlyman.results.fakeProcess.FakeProcess.Type;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
-
-import brlyman.results.fakePrinter.*;
 
 @RunWith(HierarchicalContextRunner.class)
 public class FailTest
 {
-    public class given_a_failed_test
+    public class given_a_failed_test_with_name_and_error_message
     {
-        @SuppressWarnings("unchecked")
         @Test
-        public void then_display_should_put_testname_in_infolog()
+        public void then_the_name_should_match_testname()
         {
-            failedTest.display(fakePrinter);
-            assertThat(
-                fakePrinter.log_lines,
-                contains(
-                    info(Indent.None, TESTNAME),
-                    error(Indent.One, ERROR_MSG)));
+            assertThat(fail.name(), is(equalTo(TESTNAME)));
         }
 
-        private Fail failedTest = new Fail(TESTNAME, ERROR_MSG);
-    }
+        @Test
+        public void then_then_message_should_match_errormsg()
+        {
+            assertThat(fail.message(), is(equalTo(ERROR_MSG)));
+        }
 
-    private final FakePrinter fakePrinter = new FakePrinter();
+        @Test
+        public void then_applying_a_process_should_succeed()
+        {
+            FakeProcess proc = new FakeProcess();
+            fail.apply(proc);
+            assertThat(proc.lastProcessed(), is(Type.Fail));
+        }
+
+        private Result fail = new Fail(TESTNAME, ERROR_MSG);
+    }
 
     static private final String TESTNAME = "some_test_name";
     static private final String ERROR_MSG = "some error message";
 }
+

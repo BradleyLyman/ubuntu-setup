@@ -15,12 +15,15 @@ public class Fail implements Result
     }
 
     @Override
-    public void display(Printer printer)
+    public String message()
     {
-        printer.block_indent(test_name, () ->
-        {
-            printer.error(error_msg);
-        });
+        return error_msg;
+    }
+
+    @Override
+    public void apply(final Process process)
+    {
+        process.forFail(this);
     }
 
     private final String test_name;
