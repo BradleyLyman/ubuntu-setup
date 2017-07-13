@@ -40,14 +40,28 @@ public class ContextTest
 
         public class when_the_context_has_chlidren
         {
+            @Before
+            public void setup_context_children()
+            {
+                context.addResult(new Pass("p1"));
+                context.addResult(new Fail("f1", "fmsg"));
+            }
+
             @Test
             public void then_the_process_should_handle_each_child()
             {
-                assertThat(true, is(false));
+                FakeProcess proc = new FakeProcess();
+                context.apply(proc);
+                assertThat(
+                    proc.allProcessed,
+                    containsInAnyOrder(
+                        Type.Context,
+                        Type.Pass,
+                        Type.Fail));
             }
         }
 
-        private Result context = new Context(CONTEXT_NAME);
+        private Context context = new Context(CONTEXT_NAME);
     }
 
     static private final String CONTEXT_NAME = "context name";

@@ -35,6 +35,11 @@ public class Context implements Result
         });
     }
 
+    public void addResult(final Result result)
+    {
+        results.add(result);
+    }
+
     private List<Result> results;
     private final String contextName;
 }
