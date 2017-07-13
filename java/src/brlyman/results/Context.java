@@ -29,15 +29,17 @@ public class Context implements Result
     @Override
     public void apply(Process process)
     {
-        process.forContext(this, () ->
-        {
-            results.forEach((result) -> result.apply(process));
-        });
+        process.forContext(this);
     }
 
     public void addResult(final Result result)
     {
         results.add(result);
+    }
+
+    public List<Result> results()
+    {
+        return results;
     }
 
     private List<Result> results;

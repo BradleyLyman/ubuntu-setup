@@ -25,10 +25,9 @@ public class FakeProcess implements Process
     }
 
     @Override
-    public void forContext(final Context context, Runnable runnable)
+    public void forContext(final Context context)
     {
         allProcessed.add(Type.Context);
-        runnable.run();
     }
 
     public Type lastProcessed()
