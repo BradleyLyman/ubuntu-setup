@@ -3,9 +3,10 @@ package brlyman.results;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+import java.util.*;
+
 import org.junit.*;
 import org.junit.runner.RunWith;
-
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 
 @RunWith(HierarchicalContextRunner.class)
@@ -30,12 +31,15 @@ public class MergeContextsTest
                 root.results(), hasItem(result));
         }
 
-        public class when_a_child_context_with_result_is_merged
+        public class when_child_contexts_with_a_result_are_merged
         {
             @Before
             public void merge_subcontext()
             {
-                root.apply(new MergeContexts(subContextName, result));
+                root.apply(
+                    new MergeContexts(
+                        Arrays.asList(sub1, sub2),
+                        result));
             }
 
             @Test
@@ -45,22 +49,23 @@ public class MergeContextsTest
             }
 
             @Test
-            public void then_it_should_have_one_child()
+            public void then_child_should_have_one_child()
             {
                 assertThat(
-                    root.childWithName(subContextName).results(),
+                    root.childWithName(sub1).results(),
                     hasSize(1));
             }
 
             @Test
-            public void then_its_results_should_match_merged()
+            public void then_child_results_should_match_merged()
             {
                 assertThat(
-                    root.childWithName(subContextName).results(),
+                    root.childWithName(sub1).childWithName(sub2).results(),
                     contains(result));
             }
 
-            private final String subContextName = "sub context 1";
+            private final String sub1 = "sub context 1";
+            private final String sub2 = "sub context 2";
             private final Result result = new Pass("pass");
         }
 
