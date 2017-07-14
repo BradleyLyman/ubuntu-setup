@@ -7,30 +7,35 @@ public class MergeContexts implements Process
     MergeContexts(final Result toMerge)
     {
         this.toMerge = toMerge;
-        contextNames = new Stack<>();
+        nameStack = new Stack<>();
     }
 
-    MergeContexts(final String contextName, final Result toMerge)
+    public MergeContexts(
+        final List<String> contextNames,
+        final Result toMerge)
     {
         this(toMerge);
-        contextNames.push(contextName);
+        for (int i = contextNames.size()-1; i >= 0; i--)
+        {
+            nameStack.push(contextNames.get(i));
+        }
     }
 
     @Override
     public void forContext(final Context context)
     {
-        if (contextNames.empty())
+        if (nameStack.empty())
         {
             context.addResult(toMerge);
         }
         else
         {
             context
-                .childWithName(contextNames.pop())
+                .childWithName(nameStack.pop())
                 .apply(this);
         }
     }
 
-    final Stack<String> contextNames;
+    final Stack<String> nameStack;
     final Result toMerge;
 }

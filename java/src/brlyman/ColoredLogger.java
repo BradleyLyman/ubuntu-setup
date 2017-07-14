@@ -38,6 +38,21 @@ public class ColoredLogger implements Logger
     }
 
     @Override
+    public void indent(final String name, final Runnable runnable)
+    {
+        info(name);
+        indent_depth += 1;
+        try
+        {
+            runnable.run();
+        }
+        finally
+        {
+            indent_depth -= 1;
+        }
+    }
+
+    @Override
     public void indentOnce()
     {
         indent_depth += 1;
