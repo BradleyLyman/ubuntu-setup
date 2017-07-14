@@ -12,6 +12,7 @@ public class Context implements Result
     {
         this.contextName = name;
         this.results = new ArrayList<>();
+        this.children = new HashMap<>();
     }
 
     @Override
@@ -42,6 +43,19 @@ public class Context implements Result
         return results;
     }
 
+    public Context childWithName(final String name)
+    {
+        return children.computeIfAbsent(name, this::createAndAddChild);
+    }
+
+    private Context createAndAddChild(final String name)
+    {
+        final Context child = new Context(name);
+        results.add(child);
+        return child;
+    }
+
     private List<Result> results;
+    private Map<String, Context> children;
     private final String contextName;
 }

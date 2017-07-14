@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 
-
 @RunWith(HierarchicalContextRunner.class)
 public class MergeContextsTest
 {
@@ -31,19 +30,38 @@ public class MergeContextsTest
                 root.results(), hasItem(result));
         }
 
-        @Test
-        public void then_merging_a_context_should_create_tree()
+        public class when_a_child_context_with_result_is_merged
         {
-            final String subContextName = "sub context 1";
-            final Result result = new Pass("pass result");
-            MergeContexts mergeProcess =
-                new MergeContexts(subContextName, result);
+            @Before
+            public void merge_subcontext()
+            {
+                root.apply(new MergeContexts(subContextName, result));
+            }
 
-            root.apply(mergeProcess);
+            @Test
+            public void then_root_should_have_one_child()
+            {
+                assertThat(root.results(), hasSize(1));
+            }
 
-            assertThat(root.results(), hasSize(1));
+            @Test
+            public void then_it_should_have_one_child()
+            {
+                assertThat(
+                    root.childWithName(subContextName).results(),
+                    hasSize(1));
+            }
 
-            // TODO: get sub context verify result is present
+            @Test
+            public void then_its_results_should_match_merged()
+            {
+                assertThat(
+                    root.childWithName(subContextName).results(),
+                    contains(result));
+            }
+
+            private final String subContextName = "sub context 1";
+            private final Result result = new Pass("pass");
         }
 
         private Context root = new Context("root_context");
