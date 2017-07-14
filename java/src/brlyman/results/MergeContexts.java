@@ -25,7 +25,9 @@ public class MergeContexts implements Process
         }
         else
         {
-            // TODO: do stuff
+            context
+                .childWithName(contextNames.pop())
+                .apply(this);
         }
     }
 
