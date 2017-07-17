@@ -37,10 +37,6 @@ public class TurboListener extends RunListener
     public void
     testFinished(final Description description) throws Exception
     {
-        root.apply(
-            new MergeContexts(
-                Arrays.asList(description.getClassName().split("\\$")),
-                new Pass(description.getMethodName())));
     }
 
     public void
@@ -58,11 +54,13 @@ public class TurboListener extends RunListener
     public void
     testAssumptionFailure(final Failure failure)
     {
+        log.error(failure.getMessage());
     }
 
     public void
     testIgnored(final Description description) throws Exception
     {
+        log.warn(description.getMethodName() + " ignored");
     }
 
     private final Context root;
