@@ -10,7 +10,7 @@ public class ColoredLogger implements Logger
         for (String line : split_on_newline(msg))
         {
             System.out.println(
-                BLUE + "[INFO] " + indent() + line + DEFAULT
+                BLUE + "[I] " + indent() + line + DEFAULT
             );
         }
     }
@@ -21,7 +21,7 @@ public class ColoredLogger implements Logger
         for (String line : split_on_newline(msg))
         {
             System.out.println(
-                YELLOW + "[WARN] " + indent() + line + DEFAULT
+                YELLOW + "[W] " + indent() + line + DEFAULT
             );
         }
     }
@@ -32,7 +32,7 @@ public class ColoredLogger implements Logger
         for (String line : split_on_newline(msg))
         {
             System.out.println(
-                MAGENTA + "[ERRR] " + indent() + line + DEFAULT
+                MAGENTA + "[E] " + indent() + line + DEFAULT
             );
         }
     }
