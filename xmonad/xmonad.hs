@@ -2,6 +2,7 @@ import XMonad
 import XMonad.Layout.Spacing
 import XMonad.Layout.Decoration
 import XMonad.Layout.NoFrillsDecoration
+import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
 
 import qualified XMonad.StackSet as W
@@ -33,7 +34,7 @@ myModMask = mod4Mask
 myBorderWidth = 0
 myFocusFollowsMouse = False
 myClickJustFocuses = True
-myLayoutHook = addTopBar $ spacing gap $ Tall 1 (3/100) (1/2)
+myLayoutHook = addTopBar $ spacing gap $ ThreeColMid 1 (3/100) (1/2)
 myLauncher = "rofi -matching fuzzy -combi-modi window,run -show combi -modi combi"
 myBrowser = "google-chrome"
 myManageHook = composeAll
