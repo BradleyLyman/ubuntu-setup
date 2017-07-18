@@ -7,6 +7,7 @@ call vundle#begin()
     Plugin 'Valloric/YouCompleteMe'
     Plugin 'altercation/vim-colors-solarized'
     Plugin 'scrooloose/nerdtree'
+    Plugin 'godlygeek/tabular'
 
     Plugin 'vim-airline/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
@@ -62,6 +63,13 @@ nnoremap <leader>d : bdelete<CR>
 " mappings for terminal mode
 tnoremap <Esc> <C-\><C-n>
 
+
+" ---------------------- "
+" -- tabular Mappings -- "
+" ---------------------- "
+
+nmap <Leader>a/ :Tabularize /\\<CR>
+vmap <Leader>a/ :Tabularize /\\<CR>
 
 " --------------------------- "
 " -- NERDTreeConfiguration -- "
