@@ -7,26 +7,31 @@ LOG_LINE = " <%{app_name}> %{color}%{type} %{msg} #{DEFAULT}"
 
 class Logger
     @@INDENT = "    "
-    def initialize(app_name)
+    def initialize(app_name, verbose)
         @app_name = app_name
+        @verbose = verbose
     end
 
     def info(msg)
-        $stdout.puts LOG_LINE % {
-            app_name: @app_name,
-            color: BLUE,
-            type: "[INFO]",
-            msg: "#{msg}"
-        }
+        if @verbose
+            $stdout.puts LOG_LINE % {
+                app_name: @app_name,
+                color: BLUE,
+                type: "[INFO]",
+                msg: "#{msg}"
+            }
+        end
     end
 
     def warn(msg)
-        $stdout.puts LOG_LINE % {
-            app_name: @app_name,
-            color: YELLOW,
-            type: "[WARN]",
-            msg: "#{msg}"
-        }
+        if @verbose
+            $stdout.puts LOG_LINE % {
+                app_name: @app_name,
+                color: YELLOW,
+                type: "[WARN]",
+                msg: "#{msg}"
+            }
+        end
     end
 
     def error(msg)
@@ -47,7 +52,7 @@ class Logger
     end
 end
 
-$default_logger = Logger.new "default"
+$default_logger = Logger.new "default", true
 
 def info(msg)
     $default_logger.info msg

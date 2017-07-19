@@ -4,7 +4,7 @@ require_relative '../ruby/brlyman/log.rb'
 
 def install
     info "install ruby-dev"
-    system "sudo apt-get -y install ruby-dev"
+    system "sudo apt-get install ruby-dev"
 
     info "install rb-inotify"
     system "sudo gem install rb-inotify"

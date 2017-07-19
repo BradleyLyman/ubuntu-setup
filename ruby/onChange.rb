@@ -2,7 +2,7 @@
 
 require_relative './brlyman/fs/fs_events.rb'
 
-$default_logger = Logger.new "onChange"
+$default_logger = Logger.new "onChange", false
 
 class RestartableEventProcess
     def self.with_cmd(cmd)
