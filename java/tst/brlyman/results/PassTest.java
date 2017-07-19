@@ -6,8 +6,6 @@ import static org.hamcrest.Matchers.*;
 import org.junit.*;
 import org.junit.runner.*;
 
-import brlyman.results.fakeProcess.FakeProcess;
-import brlyman.results.fakeProcess.FakeProcess.Type;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 
 @RunWith(HierarchicalContextRunner.class)
@@ -25,14 +23,6 @@ public class PassTest
         public void then_the_message_should_be_done()
         {
             assertThat(pass.message(), is(equalTo("✔")));
-        }
-
-        @Test
-        public void then_applying_a_process_should_succeed()
-        {
-            FakeProcess proc = new FakeProcess();
-            pass.apply(proc);
-            assertThat(proc.lastProcessed(), is(Type.Pass));
         }
 
         private Result pass = new Pass(TESTNAME);
