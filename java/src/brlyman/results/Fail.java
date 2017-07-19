@@ -17,13 +17,19 @@ public class Fail implements Result
     @Override
     public String message()
     {
-        return error_msg;
+        return "✘\n" + error_msg;
     }
 
     @Override
     public void apply(final Process process)
     {
         process.forFail(this);
+    }
+
+    @Override
+    public int priority()
+    {
+        return 5;
     }
 
     private final String test_name;

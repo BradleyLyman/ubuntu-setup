@@ -11,7 +11,7 @@ public class Context implements Result
     public Context(final String name)
     {
         this.contextName = name;
-        this.results = new ArrayList<>();
+        this.results = new HashMap<>();
         this.children = new HashMap<>();
     }
 
@@ -33,14 +33,32 @@ public class Context implements Result
         process.forContext(this);
     }
 
+    @Override
+    public int priority()
+    {
+        return 10;
+    }
+
     public void addResult(final Result result)
     {
-        results.add(result);
+        results.computeIfPresent(result.name(), (name, existing) ->
+        {
+            if (result.priority() > existing.priority())
+            {
+                return result;
+            }
+            return existing;
+        });
+        results.putIfAbsent(result.name(), result);
     }
 
     public List<Result> results()
     {
-        return results;
+        List<Result> resultList = new ArrayList<>(results.values());
+        Collections.sort(
+            resultList,
+            (lhs, rhs) -> Integer.compare(lhs.priority(), rhs.priority()));
+        return resultList;
     }
 
     public Context childWithName(final String name)
@@ -51,11 +69,11 @@ public class Context implements Result
     private Context createAndAddChild(final String name)
     {
         final Context child = new Context(name);
-        results.add(child);
+        addResult(child);
         return child;
     }
 
-    private List<Result> results;
+    private Map<String, Result> results;
     private Map<String, Context> children;
     private final String contextName;
 }

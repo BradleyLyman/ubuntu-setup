@@ -24,7 +24,7 @@ public class PassTest
         @Test
         public void then_the_message_should_be_done()
         {
-            assertThat(pass.message(), is(equalTo("Done")));
+            assertThat(pass.message(), is(equalTo("✔")));
         }
 
         @Test

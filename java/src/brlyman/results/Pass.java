@@ -19,7 +19,7 @@ public class Pass implements Result
     @Override
     public String message()
     {
-        return "Done";
+        return "✔";
     }
 
     @Override

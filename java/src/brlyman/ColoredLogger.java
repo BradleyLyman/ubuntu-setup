@@ -81,5 +81,5 @@ public class ColoredLogger implements Logger
     static private final String MAGENTA = "\u001B[35m";
     static private final String DEFAULT = "\u001B[0m";
 
-    private final String INDENT = "  ";
+    private final String INDENT = "   ";
 }
