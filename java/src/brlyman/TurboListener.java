@@ -27,6 +27,14 @@ public class TurboListener extends RunListener
     testRunFinished(final Result result) throws Exception
     {
         root.apply(new PrintContexts(log));
+        if (result.getFailureCount() > 0)
+        {
+            log.error("Test run failed");
+        }
+        else
+        {
+            log.info("Test run succeeded");
+        }
     }
 
     public void
@@ -37,6 +45,12 @@ public class TurboListener extends RunListener
     public void
     testFinished(final Description description) throws Exception
     {
+        root.apply(
+            new MergeContexts(
+                Arrays.asList(
+                    description.getClassName().split("\\$")),
+                new Pass(
+                    description.getMethodName())));
     }
 
     public void

@@ -24,7 +24,7 @@ public class FailTest
         @Test
         public void then_then_message_should_match_errormsg()
         {
-            assertThat(fail.message(), is(equalTo(ERROR_MSG)));
+            assertThat(fail.message(), is(equalTo("✘\n" + ERROR_MSG)));
         }
 
         @Test
