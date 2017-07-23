@@ -1,4 +1,4 @@
-package brlyman.results;
+package brlyman.results.processes;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -7,6 +7,8 @@ import java.util.*;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
+
+import brlyman.results.*;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 
 @RunWith(HierarchicalContextRunner.class)

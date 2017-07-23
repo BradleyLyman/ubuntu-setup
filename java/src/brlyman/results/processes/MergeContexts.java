@@ -1,6 +1,9 @@
-package brlyman.results;
+package brlyman.results.processes;
 
 import java.util.*;
+
+import brlyman.results.Process;
+import brlyman.results.*;
 
 public class MergeContexts implements Process
 {
