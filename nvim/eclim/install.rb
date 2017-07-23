@@ -23,7 +23,7 @@ def install
 
 	log_block "eclim" do
 		info "download eclim"
-		system "curl -L https://github.com/ervandew/eclim/releases/download/2.6.0/eclim_2.6.0.jar > eclim.jar"
+		system "curl -L https://github.com/ervandew/eclim/releases/download/2.7.0/eclim_2.7.0.jar > eclim.jar"
 
         info "install eclim"
         system "java -Dvim.files=$HOME/.vim -Declipse.home=$HOME/.config/mybin/eclipse.d -jar eclim.jar install"
