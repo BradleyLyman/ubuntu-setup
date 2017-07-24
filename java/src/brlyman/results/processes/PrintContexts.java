@@ -9,6 +9,7 @@ public class PrintContexts implements Process
 {
     public PrintContexts(final Logger logger)
     {
+        this.isRoot = true;
         this.logger = logger;
     }
 
@@ -31,12 +32,21 @@ public class PrintContexts implements Process
     @Override
     public void forContext(final Context context)
     {
-        logger.indent(CONTEXT_PREFIX + context.name(), () ->
+        if (isRoot)
         {
+            isRoot = false;
             context.results().forEach((result) -> result.apply(this));
-        });
+        }
+        else
+        {
+            logger.indent(CONTEXT_PREFIX + context.name(), () ->
+            {
+                context.results().forEach((result) -> result.apply(this));
+            });
+        }
     }
 
+    private boolean isRoot;
     private final Logger logger;
     private final String PREFIX = ":";
     private final String CONTEXT_PREFIX = "↳";

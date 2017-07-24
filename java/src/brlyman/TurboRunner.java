@@ -1,28 +1,27 @@
 package brlyman;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 import org.junit.runner.JUnitCore;
 
 public class TurboRunner
 {
     public static void main(String args[]) throws Exception
     {
-        final Class<?> testClass =
-            lookup_class_for(qualified_test_name(args[0]));
-        if (testClass == null)
-        {
-            log.warn("could not find test class for file '" + args[0] + "'");
-            return;
-        }
-
         JUnitCore core = new JUnitCore();
         core.addListener(new TurboListener(log));
-        core.run(testClass);
+
+        log.info("Lookup test classes for [" + String.join(", ", args) + "].");
+        Arrays.asList(args).stream()
+            .map(TurboRunner::qualified_test_name)
+            .map(TurboRunner::lookup_class_for)
+            .filter(Objects::nonNull)
+            .forEach(core::run);
+        log.info("TurboRunner complete!");
     }
 
     /**
-     * This... is a bit nasty.
-     * It behaves as required for now, but notably doesn't work if the
-     * class name ends with "Tests".
      * TODO:  Refactor to using nio Path perhaps?
      */
     static String qualified_test_name(final String raw_name)

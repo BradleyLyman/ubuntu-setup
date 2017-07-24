@@ -16,7 +16,7 @@ public class TurboListener extends RunListener
     public TurboListener(final Logger log)
     {
         this.log = log;
-        this.root = new Context("test run");
+        this.root = new Context("Test Suite");
     }
 
     public void
@@ -28,14 +28,7 @@ public class TurboListener extends RunListener
     testRunFinished(final Result result) throws Exception
     {
         root.apply(new PrintContexts(log));
-        if (result.getFailureCount() > 0)
-        {
-            log.error("Test run failed");
-        }
-        else
-        {
-            log.info("Test run succeeded");
-        }
+        root = new Context("Test Suite");
     }
 
     public void
@@ -76,6 +69,6 @@ public class TurboListener extends RunListener
         log.warn(description.getMethodName() + " ignored");
     }
 
-    private final Context root;
+    private Context root;
     private final Logger log;
 }
