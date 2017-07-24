@@ -9,6 +9,7 @@ import org.junit.runner.Description;
 import org.junit.runner.Result;
 
 import brlyman.results.*;
+import brlyman.results.processes.*;
 
 public class TurboListener extends RunListener
 {
@@ -45,24 +46,22 @@ public class TurboListener extends RunListener
     public void
     testFinished(final Description description) throws Exception
     {
-        root.apply(
-            new MergeContexts(
-                Arrays.asList(
-                    description.getClassName().split("\\$")),
-                new Pass(
-                    description.getMethodName())));
+        root.addTestResult(
+            Arrays.asList(
+                description.getClassName().split("\\$")),
+            new Pass(
+                description.getMethodName()));
     }
 
     public void
     testFailure(final Failure failure) throws Exception
     {
-        root.apply(
-            new MergeContexts(
-                Arrays.asList(
-                    failure.getDescription().getClassName().split("\\$")),
-                new Fail(
-                    failure.getDescription().getMethodName(),
-                    failure.getMessage())));
+        root.addTestResult(
+            Arrays.asList(
+                failure.getDescription().getClassName().split("\\$")),
+            new Fail(
+                failure.getDescription().getMethodName(),
+                failure.getMessage()));
     }
 
     public void

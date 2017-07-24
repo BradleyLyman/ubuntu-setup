@@ -3,6 +3,9 @@ package brlyman.results;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.*;
 import org.junit.runner.RunWith;
 
@@ -11,69 +14,124 @@ import de.bechte.junit.runners.context.HierarchicalContextRunner;
 @RunWith(HierarchicalContextRunner.class)
 public class ContextTest
 {
-    public class given_a_named_context
+    public class given_an_empty_context
     {
         @Test
-        public void then_the_context_should_always_have_a_name()
+        public void then_context_should_have_name()
         {
-            assertThat(root.name(), is(equalTo(CONTEXT_NAME)));
+            assertThat(context.name(), is(notNullValue()));
         }
 
         @Test
-        public void then_the_message_should_be_null()
+        public void then_context_should_have_no_message()
         {
-            assertThat(root.message(), is(nullValue()));
+            assertThat(context.message(), is(nullValue()));
         }
 
-        @Test
-        public void then_there_should_be_no_children()
-        {
-            assertThat(root.results(), hasSize(0));
-        }
-
-        public class when_accessing_a_new_child_context
+        public class when_a_test_result_is_added
         {
             @Before
-            public void access_child_context()
+            public void add_result()
             {
-                childContext = root.childWithName(childName);
+                context.addTestResult(
+                    Arrays.asList(parent1, parent2),
+                    testResult);
             }
 
             @Test
-            public void then_the_child_should_be_created()
+            public void then_results_should_contain_test_result()
             {
-                assertThat(childContext, is(notNullValue()));
-            }
-
-            @Test
-            public void then_the_child_should_be_in_root_results()
-            {
-                assertThat(root.results(), hasSize(1));
-                assertThat(root.results(), hasItem(childContext));
-            }
-
-            @Test
-            public void then_repeated_access_shouldnt_change_the_child()
-            {
+                // kinda clumsy -- maybe add an equality visitor?
+                Context p1 = (Context)context.results().get(0);
+                Context p2 = (Context)p1.results().get(0);
                 assertThat(
-                    childContext,
-                    is(equalTo(root.childWithName(childName))));
+                    p2.results(),
+                    hasItem(testResult));
             }
 
-            @Test
-            public void then_accessing_another_child_should_create_new()
-            {
-                assertThat(
-                    childContext,
-                    is(not(equalTo(root.childWithName("otherchild")))));
-            }
-
-            private Context childContext;
-            private final String childName = "child context name";
+            private final Result testResult = new Pass("passed test");
+            private final String parent1 = "parent1";
+            private final String parent2 = "parent2";
         }
-
-        private Context root = new Context(CONTEXT_NAME);
     }
 
-    static private final String CONTEXT_NAME = "context name";
+    public class given_a_context_with_a_pass_result
+    {
+        @Before
+        public void add_pass()
+        {
+            context.addTestResult(noParents, pass);
+        }
+
+        public class when_adding_a_result_with_the_same_name
+        {
+            @Test
+            public void then_adding_another_pass_should_do_nothing()
+            {
+                context.addTestResult(noParents, new Pass(pass.name()));
+                assertThat(
+                    "There should still only be one result",
+                    context.results(), hasSize(1));
+                assertThat(
+                    "The result should remain unchanged.",
+                    context.results(), hasItem(pass));
+            }
+
+            @Test
+            public void then_adding_a_fail_should_replace_the_pass()
+            {
+                final Fail fail = new Fail(pass.name(), null);
+                context.addTestResult(noParents, fail);
+                assertThat(
+                    "There should still only be one result",
+                    context.results(), hasSize(1));
+                assertThat(
+                    "The result should be replaced with the fail",
+                    context.results(), hasItem(fail));
+            }
+        }
+
+        private final Pass pass = new Pass("pass_test_result");
+    }
+
+    public class given_a_context_with_a_fail_result
+    {
+        @Before
+        public void add_fail()
+        {
+            context.addTestResult(noParents, fail);
+        }
+
+        public class when_adding_a_result_with_the_same_name
+        {
+            @Test
+            public void then_adding_a_pass_should_do_nothing()
+            {
+                context.addTestResult(noParents, new Pass(fail.name()));
+                assertThat(
+                    "There should only be one result",
+                    context.results(), hasSize(1));
+                assertThat(
+                    "The fail should remain unchanged",
+                    context.results(), hasItem(fail));
+            }
+
+            @Test
+            public void then_adding_a_fail_should_do_nothing()
+            {
+                context.addTestResult(noParents, new Fail(fail.name(), null));
+                assertThat(
+                    "There should only be one result",
+                    context.results(), hasSize(1));
+                assertThat(
+                    "The fail should remain unchanged",
+                    context.results(), hasItem(fail));
+            }
+        }
+
+        private final Fail fail = new Fail("fail_test_result", null);
+    }
+
+    private final Context context = new Context("some_context_name");
+    private static final List<String> noParents = Arrays.asList();
 }

@@ -5,7 +5,6 @@ package brlyman.results;
  */
 public interface Result
 {
-    default int priority() { return 0; }
     String name();
     String message();
     void apply(Process process);

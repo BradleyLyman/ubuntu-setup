@@ -1,6 +1,9 @@
-package brlyman.results;
+package brlyman.results.processes;
 
 import brlyman.Logger;
+
+import brlyman.results.*;
+import brlyman.results.Process;
 
 public class PrintContexts implements Process
 {

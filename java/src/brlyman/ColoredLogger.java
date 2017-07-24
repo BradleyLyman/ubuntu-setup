@@ -10,7 +10,7 @@ public class ColoredLogger implements Logger
         for (String line : split_on_newline(msg))
         {
             System.out.println(
-                BLUE + "[I] " + indent() + line + DEFAULT
+                BLUE + indent() + line + DEFAULT
             );
         }
     }
@@ -21,7 +21,7 @@ public class ColoredLogger implements Logger
         for (String line : split_on_newline(msg))
         {
             System.out.println(
-                YELLOW + "[W] " + indent() + line + DEFAULT
+                YELLOW + indent() + line + DEFAULT
             );
         }
     }
@@ -32,7 +32,7 @@ public class ColoredLogger implements Logger
         for (String line : split_on_newline(msg))
         {
             System.out.println(
-                MAGENTA + "[E] " + indent() + line + DEFAULT
+                MAGENTA + indent() + line + DEFAULT
             );
         }
     }
@@ -50,18 +50,6 @@ public class ColoredLogger implements Logger
         {
             indent_depth -= 1;
         }
-    }
-
-    @Override
-    public void indentOnce()
-    {
-        indent_depth += 1;
-    }
-
-    @Override
-    public void resetDepth()
-    {
-        indent_depth = 0;
     }
 
     private final String indent()

@@ -11,6 +11,11 @@ import brlyman.results.Process;
  */
 public class RelativePriority implements Comparator<Result>
 {
+    public static int between(final Result lhs, final Result rhs)
+    {
+        return new RelativePriority().compare(lhs, rhs);
+    }
+
     @Override
     public int compare(final Result lhs, final Result rhs)
     {

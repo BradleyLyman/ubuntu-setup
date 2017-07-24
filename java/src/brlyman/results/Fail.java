@@ -26,12 +26,6 @@ public class Fail implements Result
         process.forFail(this);
     }
 
-    @Override
-    public int priority()
-    {
-        return 5;
-    }
-
     private final String test_name;
     private final String error_msg;
 }
