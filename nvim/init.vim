@@ -37,6 +37,7 @@ colorscheme solarized
 set numberwidth=2
 set relativenumber
 set colorcolumn=80
+set autoread
 
 
 " -------------------- "
