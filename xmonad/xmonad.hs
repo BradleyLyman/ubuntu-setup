@@ -3,15 +3,23 @@ import XMonad.Actions.Submap
 import XMonad.Layout.Spacing
 import XMonad.Layout.Decoration
 import XMonad.Layout.NoFrillsDecoration
+import XMonad.Layout.NoBorders
 import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
 import XMonad.Util.NamedScratchpad
 
+import Data.List
 import qualified Data.Map.Lazy as M
 import qualified XMonad.StackSet as W
 
+-- NOTE:
+--   WM_CLASS(STRING) = "appName aka resource", "className"
+-- ALSO:
+--   If the window-finder doesn't work, then the ManageHook won't work
 scratchpads =
     [ NS "htop" "urxvt -e htop" (title =? "htop") manageHTop
+    , NS "mail" mailCmd (appName =? "ballard.amazon.com") manageEmail
+    , NS "elixir" "urxvt -e iex" (title =? "iex") manageElixir
     ]
     where
         manageHTop = customFloating $ W.RationalRect x y w h
@@ -19,6 +27,20 @@ scratchpads =
                 h = 0.5
                 w = 0.3
                 x = 0.95 - w
+                y = 0.05
+        mailCmd = myBrowser
+                ++ " --app=https://ballard.amazon.com"
+        manageEmail = customFloating $ W.RationalRect x y w h
+            where
+                h = 0.6
+                w = 0.6
+                x = (1-w)/2
+                y = (1-h)/2
+        manageElixir = customFloating $ W.RationalRect x y w h
+            where
+                h = 0.4
+                w = 0.4
+                x = 0.05
                 y = 0.05
 
 main = xmonad $ myConfig
@@ -32,11 +54,15 @@ myKeymap = [ ("M-n", spawn myLauncher)
                [ ((0,xK_b), spawn myBrowser)
                , ((0, xK_t), spawn myTerminal)
                , ((0, xK_h), namedScratchpadAction scratchpads "htop")
+               , ((0, xK_m), namedScratchpadAction scratchpads "mail")
+               , ((0, xK_e), namedScratchpadAction scratchpads "elixir")
                ])
            ]
 
 myConfig = defaultConfig
     { terminal = myTerminal
+    , normalBorderColor = inactive
+    , focusedBorderColor = active
     , layoutHook = myLayoutHook
     , modMask = myModMask
     , focusFollowsMouse = myFocusFollowsMouse
@@ -50,16 +76,16 @@ myConfig = defaultConfig
 
 myTerminal = "urxvt"
 myModMask = mod4Mask
-myBorderWidth = 0
+myBorderWidth = 2
 myFocusFollowsMouse = False
 myClickJustFocuses = True
-myLayoutHook = addTopBar $ spacing gap $ ThreeColMid 1 (3/100) (1/3)
+myLayoutHook = addTopBar $ spacing gap $ noBorders $ ThreeColMid 1 (3/100) (1/3)
 myLauncher = "rofi -matching fuzzy -combi-modi window,run -show combi -modi combi"
-myBrowser = "google-chrome"
+myBrowser = "google-chrome-stable --disable-gpu"
 myManageHook = composeAll
     [ title =? "tetra-creative" --> doFloat
+    , namedScratchpadManageHook scratchpads
     ]
-    <+> namedScratchpadManageHook scratchpads
 
 -- Theme Definition --
 
@@ -84,6 +110,7 @@ green   = "#859900"
 
 active = blue
 activeWarn = red
+inactive = base03
 
 -- sizes
 gap    = 10
@@ -101,10 +128,10 @@ topBarTheme = defaultTheme
     , inactiveColor = base03
     , urgentColor = activeWarn
     , activeBorderColor = active
-    , inactiveBorderColor = base03
+    , inactiveBorderColor = inactive
     , urgentBorderColor = activeWarn
     , activeTextColor = active
-    , inactiveTextColor = base03
+    , inactiveTextColor = inactive
     , urgentTextColor = yellow
     , decoHeight = 10
     }
