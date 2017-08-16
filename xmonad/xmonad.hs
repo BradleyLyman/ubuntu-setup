@@ -1,11 +1,25 @@
 import XMonad
+import XMonad.Actions.Submap
 import XMonad.Layout.Spacing
 import XMonad.Layout.Decoration
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
+import XMonad.Util.NamedScratchpad
 
+import qualified Data.Map.Lazy as M
 import qualified XMonad.StackSet as W
+
+scratchpads =
+    [ NS "htop" "urxvt -e htop" (title =? "htop") manageHTop
+    ]
+    where
+        manageHTop = customFloating $ W.RationalRect x y w h
+            where
+                h = 0.5
+                w = 0.3
+                x = 0.95 - w
+                y = 0.05
 
 main = xmonad $ myConfig
 
@@ -14,6 +28,11 @@ myKeymap = [ ("M-n", spawn myLauncher)
            , ("M-<Backspace>", kill)
            , ("M-<Return>", spawn myTerminal)
            , ("M-m", windows W.swapMaster)
+           , ("M-s", submap . M.fromList $
+               [ ((0,xK_b), spawn myBrowser)
+               , ((0, xK_t), spawn myTerminal)
+               , ((0, xK_h), namedScratchpadAction scratchpads "htop")
+               ])
            ]
 
 myConfig = defaultConfig
@@ -40,6 +59,7 @@ myBrowser = "google-chrome"
 myManageHook = composeAll
     [ title =? "tetra-creative" --> doFloat
     ]
+    <+> namedScratchpadManageHook scratchpads
 
 -- Theme Definition --
 

@@ -2,16 +2,20 @@
 
 require_relative '../ruby/brlyman/log.rb'
 
-def install
-    info "install xmonad and friends"
-    system "sudo apt-get install xmonad rofi xcompmgr feh xcape"
-
+def update_src
     info "copy xmonad configuration"
     system "mkdir -p ~/.xmonad"
     system "cp ./xmonad.hs ~/.xmonad/xmonad.hs"
 
     info "compile xmonad"
     system "xmonad --recompile"
+end
+
+def install
+    info "install xmonad and friends"
+    system "sudo apt-get install xmonad rofi xcompmgr feh xcape"
+
+    update_src
 
     info "copy xinit"
     system "cp ./xinitrc ~/.xinitrc"
@@ -42,6 +46,9 @@ end
 
 if ARGV.first == "-u"
     uninstall
+elsif ARGV.first == "--config"
+    update_src
 else
     install
 end
+
