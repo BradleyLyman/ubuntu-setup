@@ -5,9 +5,11 @@ function fish_prompt
 
     set branch (git branch 2>/dev/null | grep \* | sed 's/\*//g' | sed 's/ //g')
 
-    if set -q branch
-        echo $yellow(prompt_pwd) [$blue$branch$yellow] ">> "
-    else
-        echo $yellow (prompt_pwd) ">> "
+    echo "$blue┏╸$yellow"(prompt_pwd)
+
+    if test -n "$branch";
+        echo "$blue┣╸$yellow<$blue$branch$yellow>"
     end
+
+    echo "$blue┗╸"
 end
