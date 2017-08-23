@@ -19,6 +19,7 @@ import qualified XMonad.StackSet as W
 scratchpads =
     [ NS "htop" "urxvt -e htop" (title =? "htop") manageHTop
     , NS "mail" mailCmd (appName =? "ballard.amazon.com") manageEmail
+    , NS "browse" browseCmd (className =? "browse-scratch") manageEmail
     , NS "elixir" "urxvt -e iex" (title =? "iex") manageElixir
     ]
     where
@@ -36,6 +37,10 @@ scratchpads =
                 w = 0.6
                 x = (1-w)/2
                 y = (1-h)/2
+        browseCmd = myBrowser
+                  ++ " --user-data-dir=~/.config/google-chrome/profiles/browseScratch"
+                  ++ " --class=browse-scratch"
+                  ++ " --new-window"
         manageElixir = customFloating $ W.RationalRect x y w h
             where
                 h = 0.4
@@ -51,8 +56,7 @@ myKeymap = [ ("M-n", spawn myLauncher)
            , ("M-<Return>", spawn myTerminal)
            , ("M-m", windows W.swapMaster)
            , ("M-s", submap . M.fromList $
-               [ ((0,xK_b), spawn myBrowser)
-               , ((0, xK_t), spawn myTerminal)
+               [ ((0, xK_b), namedScratchpadAction scratchpads "browse")
                , ((0, xK_h), namedScratchpadAction scratchpads "htop")
                , ((0, xK_m), namedScratchpadAction scratchpads "mail")
                , ((0, xK_e), namedScratchpadAction scratchpads "elixir")
