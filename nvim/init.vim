@@ -13,6 +13,8 @@ call vundle#begin()
     Plugin 'vim-airline/vim-airline-themes'
 
     Plugin 'epeli/slimux'
+
+    Plugin 'elixir-editors/vim-elixir'
 call vundle#end()
 set nocompatible
 filetype plugin indent on
