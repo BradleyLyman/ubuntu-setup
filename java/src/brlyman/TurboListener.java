@@ -54,7 +54,7 @@ public class TurboListener extends RunListener
                 failure.getDescription().getClassName().split("\\$")),
             new Fail(
                 failure.getDescription().getMethodName(),
-                failure.getMessage()));
+                failure.getMessage() + "\n" + failure.getTrace()));
     }
 
     public void
