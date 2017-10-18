@@ -101,36 +101,31 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-urxvt.font: xft:DejaVu Sans Mono:size=12
-urxvt.boldFont: xft:DejaVu Sans Mono:bold:size=12
+*urxvt.font: xft:DejaVuSansMono:size=10
+*urxvt.boldFont: xft:DejaVuSansMono:bold:size=10
 
-urxvt.italicFont: xft:DejaVu Sans Mono:italic:size=12
-urxvt.boldItalicFont: xft:DejaVu Sans Mono:bold:italic:size=12
+*urxvt.italicFont: xft:DejaVuSansMono:italic:size=10
+*urxvt.boldItalicFont: xft:DejaVuSansMono:bold:italic:size=10
 
 
 ! --------------------- !
 ! -- SCROLL SETTINGS -- !
 ! --------------------- !
-URxvt*saveLines: 15000
-!URxvt*scrollstyle: plain
-URxvt*scrollBar: false
-URxvt*cursorBlink: true
-URxvt*scrollBar_floating: true
-URxvt*scrollBar_right: true
-URxvt*scrollColor: S_base02
-URxvt*termName: xterm-256color
-URxvt*background: rgba:0000/2b00/3600/EF00
+*urxvt*saveLines: 15000
+*urxvt*scrollBar: false
+*urxvt*cursorBlink: true
+*urxvt*scrollBar_floating: true
+*urxvt*scrollBar_right: true
+*urxvt*scrollColor: S_base02
+*urxvt*termName: xterm-256color
+*urxvt*background: rgba:0000/2b00/3600/EF00
 
-! dont scroll with output !
-URxvt*scrollTtyOutput: false
+*urxvt*scrollTtyOutput: false
+*urxvt*scrollWithBuffer: true
+*urxvt*scrollTtyKeypress: true
 
-! scroll with shift+page up or mouse wheel !
-URxvt*scrollWithBuffer: true
+*urxvt*depth: 32
 
-! scroll to bottom with kepress !
-URxvt*scrollTtyKeypress: true
+*urxvt.perl-ext-common: default,resize-font
+Xft.dpi: 110
 
-URxvt*depth: 32
-
-urxvt.perl-ext-common: default,resize-font
-Xft.dpi: 109
