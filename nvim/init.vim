@@ -63,6 +63,9 @@ nnoremap <leader>t <C-t>
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>d : bdelete<CR>
 
+" mappings for marks
+nnoremap <leader>m '
+
 " mappings for terminal mode
 tnoremap <Esc> <C-\><C-n>
 
