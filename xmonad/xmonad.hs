@@ -88,6 +88,7 @@ myLauncher = "rofi -matching fuzzy -combi-modi window,run -show combi -modi comb
 myBrowser = "google-chrome-stable --disable-gpu"
 myManageHook = composeAll
     [ title =? "tetra-creative" --> doFloat
+    , className =? "Screenkey" --> doFloat
     , namedScratchpadManageHook scratchpads
     ]
 
