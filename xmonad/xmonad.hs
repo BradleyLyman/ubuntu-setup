@@ -18,7 +18,7 @@ import qualified XMonad.StackSet as W
 --   If the window-finder doesn't work, then the ManageHook won't work
 scratchpads =
     [ NS "htop" "urxvt -e htop" (title =? "htop") manageHTop
-    , NS "mail" mailCmd (appName =? "ballard.amazon.com") manageEmail
+    , NS "mail" mailCmd (className =? "mail") manageEmail
     , NS "browse" browseCmd (className =? "browse-scratch") manageEmail
     , NS "elixir" "urxvt -e iex" (title =? "iex") manageElixir
     ]
@@ -30,7 +30,9 @@ scratchpads =
                 x = 0.95 - w
                 y = 0.05
         mailCmd = myBrowser
-                ++ " --app=https://ballard.amazon.com"
+                ++ " https://ballard.amazon.com"
+                ++ " -P mail --class=mail"
+                ++ " --new-window"
         manageEmail = customFloating $ W.RationalRect x y w h
             where
                 h = 0.6
@@ -38,8 +40,8 @@ scratchpads =
                 x = (1-w)/2
                 y = (1-h)/2
         browseCmd = myBrowser
-                  ++ " --user-data-dir=~/.config/google-chrome/profiles/browseScratch"
-                  ++ " --class=browse-scratch"
+                  ++ " -P browse-scratch"
+                  ++ " --class='browse-scratch'"
                   ++ " --new-window"
         manageElixir = customFloating $ W.RationalRect x y w h
             where
@@ -51,7 +53,7 @@ scratchpads =
 main = xmonad $ myConfig
 
 myKeymap = [ ("M-n", spawn myLauncher)
-           , ("M-b", spawn myBrowser)
+           , ("M-b", spawn (myBrowser ++ " -P browser --class=browser --new-window"))
            , ("M-<Backspace>", kill)
            , ("M-<Return>", spawn myTerminal)
            , ("M-m", windows W.swapMaster)
@@ -85,7 +87,7 @@ myFocusFollowsMouse = False
 myClickJustFocuses = True
 myLayoutHook = addTopBar $ spacing gap $ noBorders $ ThreeColMid 1 (3/100) (1/3)
 myLauncher = "rofi -matching fuzzy -combi-modi window,run -show combi -modi combi"
-myBrowser = "google-chrome-stable --disable-gpu"
+myBrowser = "firefox "
 myManageHook = composeAll
     [ title =? "tetra-creative" --> doFloat
     , className =? "Screenkey" --> doFloat
