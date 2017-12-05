@@ -105,6 +105,9 @@ let g:airline#extensions#tabline#enabled = 1
 let g:ycm_global_ycm_extra_conf = '/home/brlyman/.config/nvim/ycm_extra_conf.py'
 
 
+let g:ycm_rust_src_path = '~/.cargo/rust/src'
+
+
 " ----------------------------------- "
 " -- BEGIN JAVA PROJECT MANAGEMENT -- "
 " ----------------------------------- "
@@ -115,6 +118,8 @@ augroup javagrp
     autocmd FileType java :iabbrev cc Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     autocmd FileType java :iabbrev pc public class
     autocmd FileType java :iabbrev pv public void
+    autocmd FileType java :iabbrev isat import static org.hamcrest.MatcherAssert.assertThat;
+    autocmd FileType java :iabbrev ism import static org.hamcrest.Matchers
     autocmd FileType java :iabbrev hcr @RunWith(HierarchicalContextRunner.class)
 augroup END
 
