@@ -20,6 +20,7 @@ scratchpads =
     [ NS "htop" "urxvt -e htop" (title =? "htop") manageHTop
     , NS "mail" mailCmd (className =? "mail") manageEmail
     , NS "browse" browseCmd (className =? "browse-scratch") manageEmail
+    , NS "chime" chimeCmd (className =? "chime-scratch") manageEmail
     , NS "elixir" "urxvt -e iex" (title =? "iex") manageElixir
     ]
     where
@@ -43,6 +44,11 @@ scratchpads =
                   ++ " -P browse-scratch"
                   ++ " --class='browse-scratch'"
                   ++ " --new-window"
+        chimeCmd = myBrowser
+                 ++ " https://app.chime.aws"
+                 ++ " -P chime-scratch"
+                 ++ " --class='chime-scratch'"
+                 ++ " --new-window"
         manageElixir = customFloating $ W.RationalRect x y w h
             where
                 h = 0.4
@@ -59,6 +65,7 @@ myKeymap = [ ("M-n", spawn myLauncher)
            , ("M-m", windows W.swapMaster)
            , ("M-s", submap . M.fromList $
                [ ((0, xK_b), namedScratchpadAction scratchpads "browse")
+               , ((0, xK_c), namedScratchpadAction scratchpads "chime")
                , ((0, xK_h), namedScratchpadAction scratchpads "htop")
                , ((0, xK_m), namedScratchpadAction scratchpads "mail")
                , ((0, xK_e), namedScratchpadAction scratchpads "elixir")
