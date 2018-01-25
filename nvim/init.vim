@@ -15,6 +15,7 @@ call vundle#begin()
     Plugin 'epeli/slimux'
 
     Plugin 'elixir-editors/vim-elixir'
+    Plugin 'rust-lang/rust.vim'
 call vundle#end()
 set nocompatible
 filetype plugin indent on
@@ -33,7 +34,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :retab
 set ruler
 set shell=/bin/bash
-set background=dark
+set background=light
 let g:solarized_termtrans=1
 colorscheme solarized
 set numberwidth=2
@@ -105,7 +106,16 @@ let g:airline#extensions#tabline#enabled = 1
 let g:ycm_global_ycm_extra_conf = '/home/brlyman/.config/nvim/ycm_extra_conf.py'
 
 
+" --------------------------------- "
+" -- BEGIN RUST PROJECT SETTINGS -- "
+" --------------------------------- "
 let g:ycm_rust_src_path = '~/.cargo/rust/src'
+
+augroup rustgrp
+    autocmd!
+    autocmd FileType rust :set syntax=OFF
+    autocmd FileType rust nmap <Leader>f :RustFmt<CR>
+augroup END
 
 
 " ----------------------------------- "
