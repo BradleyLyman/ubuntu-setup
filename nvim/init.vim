@@ -16,6 +16,8 @@ call vundle#begin()
 
     Plugin 'elixir-editors/vim-elixir'
     Plugin 'rust-lang/rust.vim'
+
+    Plugin 'artur-shaik/vim-javacomplete2'
 call vundle#end()
 set nocompatible
 filetype plugin indent on
@@ -41,7 +43,11 @@ set numberwidth=2
 set relativenumber
 set colorcolumn=80
 set autoread
-
+set cursorline
+set cursorcolumn
+highlight ColorColumn ctermbg=6
+highlight CursorLine ctermbg=15
+highlight CursorColumn ctermbg=15
 
 " -------------------- "
 " --  Key Remapping -- "
@@ -131,6 +137,7 @@ augroup javagrp
     autocmd FileType java :iabbrev isat import static org.hamcrest.MatcherAssert.assertThat;
     autocmd FileType java :iabbrev ism import static org.hamcrest.Matchers
     autocmd FileType java :iabbrev hcr @RunWith(HierarchicalContextRunner.class)
+    autocmd FileType java setlocal omnifunc=javacomplete#Complete
 augroup END
 
 let g:EclimCompletionMethod = 'omnifunc'
