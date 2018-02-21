@@ -34,14 +34,16 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :retab
 set ruler
 set shell=/bin/bash
-set background=light
-let g:solarized_termtrans=1
+set background=dark
 colorscheme solarized
 set numberwidth=2
 set relativenumber
 set colorcolumn=80
 set autoread
 
+hi ColorColumn ctermbg=3
+hi clear LineNr
+hi LineNr ctermfg=10
 
 " -------------------- "
 " --  Key Remapping -- "
@@ -50,7 +52,7 @@ let mapleader = ","
 nmap <space> zz
 noremap ; :
 
-nnoremap <leader>w <C-w><C-w>
+nnoremap <leader>w <C-w>
 
 " mappings for eclim shortcuts
 nnoremap <leader>i :JavaImport<CR>

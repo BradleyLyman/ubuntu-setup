@@ -2,7 +2,7 @@
 ! -- COLOR SETTING -- !
 ! ------------------- !
 
-#define SOALIZED_LIGHT
+#define SOALIZED_DARK
 
 ! Default to dark background if neither constant is defined, or if both are.
 #if !defined(SOLARIZED_LIGHT) && !defined(SOLARIZED_DARK)
@@ -118,7 +118,7 @@ Xft.rgba: rgb
 *urxvt*scrollBar_right: true
 *urxvt*scrollColor: S_base02
 *urxvt*termName: xterm-256color
-*urxvt*background: rgba:fd00/f600/e300/EF00
+*urxvt*background: rgba:0000/2b00/3600/EF00
 
 *urxvt*scrollTtyOutput: false
 *urxvt*scrollWithBuffer: true
