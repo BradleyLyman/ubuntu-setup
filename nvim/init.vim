@@ -1,25 +1,20 @@
+set shell=/bin/bash
+
 " --------------------- "
 " --  Vundle Config  -- "
 " --------------------- "
-set rtp+=~/.config/nvim/bundle/Vundle.vim
-call vundle#begin()
-    Plugin 'VundleVim/Vundle.vim'
-    Plugin 'Valloric/YouCompleteMe'
-    Plugin 'altercation/vim-colors-solarized'
-    Plugin 'scrooloose/nerdtree'
-    Plugin 'godlygeek/tabular'
+call plug#begin('~/.vim/plugged')
+    Plug 'valloric/YouCompleteMe'
+    Plug 'altercation/vim-colors-solarized'
+    Plug 'scrooloose/nerdtree'
+    Plug 'godlygeek/tabular'
 
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'vim-airline/vim-airline-themes'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
 
-    Plugin 'epeli/slimux'
+    Plug 'epeli/slimux'
+call plug#end()
 
-    Plugin 'elixir-editors/vim-elixir'
-    Plugin 'rust-lang/rust.vim'
-call vundle#end()
-set nocompatible
-filetype plugin indent on
-syntax on
 
 " --------------------------- "
 " -- GENERAL CONFIGURATION -- "
@@ -33,7 +28,6 @@ set shiftwidth=4
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :retab
 set ruler
-set shell=/bin/bash
 set background=dark
 colorscheme solarized
 set numberwidth=2
@@ -41,7 +35,8 @@ set relativenumber
 set colorcolumn=80
 set autoread
 
-hi ColorColumn ctermbg=3
+hi ColorColumn ctermbg=11
+hi clear SignColumn
 hi clear LineNr
 hi LineNr ctermfg=10
 
@@ -55,8 +50,9 @@ noremap ; :
 nnoremap <leader>w <C-w>
 
 " mappings for eclim shortcuts
-nnoremap <leader>i :JavaImport<CR>
-nnoremap <leader>c :JavaCorrect<CR>
+nnoremap <leader>c :YcmCompleter FixIt<CR>
+nnoremap <leader>doc :YcmCompleter GetDoc<CR>
+nnoremap <leader>gt :YcmCompleter GoToDefinition<CR>
 
 " mappings for tags
 nnoremap <leader>f <C-]>
