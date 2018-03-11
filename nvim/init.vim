@@ -131,20 +131,9 @@ augroup javagrp
     autocmd FileType java :iabbrev hcr @RunWith(HierarchicalContextRunner.class)
 augroup END
 
-let g:EclimCompletionMethod = 'omnifunc'
+let home = system("echo ~")[:-2]
+let lombok_path = home . "/.config/mybin/lombok.jar"
+let java_agent = "-javaagent:" . lombok_path
+let boot_cp = "-Xbootclasspath/p:" . lombok_path
 
-function CreateProject()
-    let wd = system("pwd")[:-2]
-    let project_name = system("projectName")[:-2]
-    let cmd = "ProjectCreate " . wd . " -n java -p " . project_name
-    exe cmd
-endfunction
-
-function DeleteProject()
-    let project_name = system("projectName")[:-2]
-    let cmd = "ProjectDelete " . project_name
-    echo cmd
-    exe cmd
-endfunction
-
-
+let $JAVA_TOOL_OPTIONS = java_agent . " " . boot_cp

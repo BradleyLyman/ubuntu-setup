@@ -2,6 +2,8 @@
 
 require_relative '../../ruby/brlyman/log.rb'
 
+INSTALL_DIR = "~/.config/mybin/lombok.jar"
+
 def install
     info "install curl"
     system "sudo apt-get install curl"
@@ -9,15 +11,13 @@ def install
     info "download lombok"
     system "curl https://projectlombok.org/downloads/lombok.jar > lombok.jar"
 
-    info "install lombok"
-    system "java -jar lombok.jar"
-
-    info "delete files"
-    system "rm lombok.jar"
+    info "move to mybin"
+    system "mv ./lombok.jar #{INSTALL_DIR}"
 end
 
 def uninstall
-    # nothing
+    info "remove from mybin"
+    system "rm #{INSTALL_DIR}"
 end
 
 if ARGV.first == "-u"
