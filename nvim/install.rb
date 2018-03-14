@@ -11,6 +11,10 @@ def install
     info "remove vim"
     system "sudo apt-get remove --purge vim"
 
+    info "symlink old .vim dir"
+    system "mkdir -p ~/.config/nvim"
+    system "ln -s ~/.config/nvim ~/.vim"
+
     log_block "install_neovim" do
         info "**START**"
         system "sudo apt-get install software-properties-common"
@@ -39,14 +43,7 @@ def install
         info "install python-Levenshtein"
         system "pip3 install python-Levenshtein"
         system "pip install python-Levenshtein"
-
-        info "install Vundle"
-        system "mkdir -p ~/.config/nvim/bundle"
-        system "git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
     end
-
-    info "symlink old .vim dir"
-    system "ln -s ~/.config/nvim ~/.vim"
 end
 
 def uninstall
