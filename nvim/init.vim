@@ -30,15 +30,12 @@ autocmd BufWritePre * :retab
 set ruler
 set background=dark
 colorscheme solarized
-set numberwidth=2
-set relativenumber
 set colorcolumn=80
 set autoread
+set nonumber
+set norelativenumber
 
 hi ColorColumn ctermbg=11
-hi clear SignColumn
-hi clear LineNr
-hi LineNr ctermfg=10
 
 " -------------------- "
 " --  Key Remapping -- "
@@ -73,8 +70,8 @@ tnoremap <Esc> <C-\><C-n>
 " -- tabular Mappings -- "
 " ---------------------- "
 
-nmap <Leader>a/ :Tabularize /\\<CR>
-vmap <Leader>a/ :Tabularize /\\<CR>
+nmap <Leader>a :Tabularize /:/<CR>
+vmap <Leader>a :Tabularize /:/<CR>
 
 " --------------------------- "
 " -- NERDTreeConfiguration -- "
