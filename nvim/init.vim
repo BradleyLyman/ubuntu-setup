@@ -95,6 +95,16 @@ nnoremap <leader>b :SlimuxREPLSendBuffer<CR>
 let g:airline#extensions#tabline#enabled = 1
 
 
+" ------------------------- "
+" -- BEGIN YAML SETTINGS -- "
+" ------------------------- "
+augroup yamlgrpm
+    autocmd!
+    autocmd FileType yaml :set tabstop=2
+    autocmd FileType yaml :set shiftwidth=2
+    autocmd FileType yaml :set syntax=OFF
+augroup END
+
 " ---------------------------------- "
 " -- BEGIN C++ PROJECT MANAGEMENT -- "
 " ---------------------------------- "
