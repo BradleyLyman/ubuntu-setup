@@ -3,8 +3,8 @@
 require_relative '../ruby/brlyman/log.rb'
 
 def install_init_vim
-    info "copy init.vim"
-    system "cp ./init.vim ~/.config/nvim/init.vim"
+    info "copy *.vim"
+    system "cp ./*.vim ~/.config/nvim/"
 end
 
 def install
