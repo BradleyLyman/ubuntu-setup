@@ -105,6 +105,16 @@ augroup yamlgrpm
     autocmd FileType yaml :set syntax=OFF
 augroup END
 
+" --------------------------- "
+" -- BEGIN ELIXIR SETTINGS -- "
+" --------------------------- "
+augroup elixirgrp
+    autocmd!
+    autocmd FileType elixir :set tabstop=2
+    autocmd FileType elixir :set shiftwidth=2
+    autocmd FileType elixir :set syntax=OFF
+augroup END
+
 " ---------------------------------- "
 " -- BEGIN C++ PROJECT MANAGEMENT -- "
 " ---------------------------------- "
