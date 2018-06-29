@@ -8,22 +8,16 @@ Install the found driver
 
     > sudo apt-get install nvidia-driver-390
 
-Configure screen layout and scale
+Update nvidia settings.
+Open the xdisplay and select "Force full Composition Pipeline" under the
+advanced settings. (helps with vsync tearing). Once set, run 'save to xorg'
+so the settings are persisted across reboot.
 
-    > xrandr \
-        --output DP-4 --auto \
-        --output DP-0 --auto --scale 0.5x0.5 --left-of DP-4 \
-        --output DP-2 --auto --left-of DP-0
-
-Save and auto-load screen layout and scale
-
-    > nvidia-settings -q CurrentMetaMode
-
-         Attribute 'CurrentMetaMode' (ubuntu-desktop:0.0): id=50, switchable=no, source=nv-control :: DPY-6: nvidia-auto-select @3840x2160 +5760+0 {ViewPortIn=3840x2160, ViewPortOut=3840x2160+0+0}, DPY-4: nvidia-auto-select @1920x1080 +0+0 {ViewPortIn=1920x1080, ViewPortOut=1920x1080+0+0}, DPY-2: nvidia-auto-select @1920x1080 +1920+0 {Transform=(0.500000,0.000000,0.000000,0.000000,0.500000,0.000000,0.000000,0.000000,1.000000), ViewPortIn=1920x1080, ViewPortOut=3840x2160+0+0, ResamplingMethod=Bilinear}
-
-The settings can be reloaded (in xinitrc, for example) like so:
-
-    > nvidia-settings --assign "CurrentMetaMode=$ThatOutputString"
+    > sudo nvidia-settings
 
 Check the Arch Linux wiki for more config details
+Update the mode line:
+
+    > echo "options nvidia_390_drm modeset=1" > \
+        /etc/modprobe.d/zz-nvidia-modeset.conf
 
