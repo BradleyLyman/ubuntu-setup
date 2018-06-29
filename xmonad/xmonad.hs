@@ -98,6 +98,7 @@ myBrowser = "firefox "
 myManageHook = composeAll
     [ title =? "tetra-creative" --> doFloat
     , className =? "Screenkey" --> doFloat
+    , className =? "Unity" --> doFloat
     , namedScratchpadManageHook scratchpads
     ]
 
