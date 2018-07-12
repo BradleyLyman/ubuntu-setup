@@ -119,6 +119,10 @@ augroup END
 " -- BEGIN C++ PROJECT MANAGEMENT -- "
 " ---------------------------------- "
 let g:ycm_global_ycm_extra_conf = '/home/brlyman/.config/nvim/ycm_extra_conf.py'
+augroup cpp
+    autocmd!
+    autocmd FileType cpp :set syntax=OFF
+augroup END
 
 
 " --------------------------------- "
