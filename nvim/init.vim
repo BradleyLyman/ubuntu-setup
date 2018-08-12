@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'altercation/vim-colors-solarized'
     Plug 'scrooloose/nerdtree'
     Plug 'godlygeek/tabular'
+    Plug 'rhysd/vim-clang-format'
 
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
@@ -22,8 +23,8 @@ call plug#end()
 set mouse=v
 set clipboard+=unnamedplus
 set expandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 " remove trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :retab
@@ -32,8 +33,8 @@ set background=dark
 colorscheme solarized
 set colorcolumn=80
 set autoread
-set nonumber
-set norelativenumber
+set number
+set relativenumber
 
 hi ColorColumn ctermbg=11
 
@@ -118,10 +119,12 @@ augroup END
 " ---------------------------------- "
 " -- BEGIN C++ PROJECT MANAGEMENT -- "
 " ---------------------------------- "
+let g:clang_format#detect_style_file = 1
 let g:ycm_global_ycm_extra_conf = '/home/brlyman/.config/nvim/ycm_extra_conf.py'
 augroup cpp
     autocmd!
-    autocmd FileType cpp :set syntax=OFF
+    autocmd FileType c,cpp :set syntax=OFF
+    autocmd FileType c,cpp ClangFormatAutoEnable
 augroup END
 
 
