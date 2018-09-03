@@ -23,8 +23,8 @@ call plug#end()
 set mouse=v
 set clipboard+=unnamedplus
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 " remove trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :retab
@@ -124,6 +124,8 @@ let g:ycm_global_ycm_extra_conf = '/home/brlyman/.config/nvim/ycm_extra_conf.py'
 augroup cpp
     autocmd!
     autocmd FileType c,cpp :set syntax=OFF
+    autocmd FileType elixir :set tabstop=4
+    autocmd FileType elixir :set shiftwidth=4
     autocmd FileType c,cpp ClangFormatAutoEnable
 augroup END
 
@@ -136,7 +138,7 @@ let g:ycm_rust_src_path = '~/.cargo/rust/src'
 augroup rustgrp
     autocmd!
     autocmd FileType rust :set syntax=OFF
-    autocmd FileType rust nmap <Leader>f :RustFmt<CR>
+    autocmd FileType rust vmap <Leader>f :'<,'>!rustfmt<CR>
 augroup END
 
 
