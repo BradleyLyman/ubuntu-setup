@@ -3,6 +3,7 @@ function fish_greeting
     set -l highlight (set_color -o yellow)
 
     echo $color":"
-    echo $color":  the obstacle is the way"
+    echo $color":  the impediment to action advances action"
+    echo $color":  what stands in the way becomes the way"
     echo $color":"
 end
