@@ -14,17 +14,23 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline-themes'
 
     Plug 'epeli/slimux'
+    Plug 'slashmili/alchemist.vim'
+    Plug 'elixir-editors/vim-elixir'
 call plug#end()
-
 
 " --------------------------- "
 " -- GENERAL CONFIGURATION -- "
 " --------------------------- "
+filetype on
+filetype plugin on
+filetype indent off
+
 set mouse=v
 set clipboard+=unnamedplus
 set expandtab
 set tabstop=4
 set shiftwidth=4
+set autoindent
 " remove trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :retab
@@ -114,6 +120,7 @@ augroup elixirgrp
     autocmd FileType elixir :set tabstop=2
     autocmd FileType elixir :set shiftwidth=2
     autocmd FileType elixir :set syntax=OFF
+    autocmd FileType elixir :set omnifunc
 augroup END
 
 " ---------------------------------- "
