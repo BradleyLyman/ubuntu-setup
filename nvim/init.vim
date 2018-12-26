@@ -131,8 +131,8 @@ let g:ycm_global_ycm_extra_conf = '/home/brlyman/.config/nvim/ycm_extra_conf.py'
 augroup cpp
     autocmd!
     autocmd FileType c,cpp :set syntax=OFF
-    autocmd FileType elixir :set tabstop=4
-    autocmd FileType elixir :set shiftwidth=4
+    autocmd FileType c,cpp :set tabstop=4
+    autocmd FileType c,cpp :set shiftwidth=4
     autocmd FileType c,cpp ClangFormatAutoEnable
 augroup END
 
