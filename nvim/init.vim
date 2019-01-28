@@ -103,6 +103,36 @@ let g:airline#extensions#tabline#enabled = 1
 
 
 " ------------------------- "
+" -- BEGIN SH SETTINGS -- "
+" ------------------------- "
+augroup shgrp
+    autocmd!
+    autocmd FileType sh :set tabstop=2
+    autocmd FileType sh :set shiftwidth=2
+    autocmd FileType sh :set syntax=OFF
+augroup END
+
+" ------------------------- "
+" -- BEGIN TS SETTINGS -- "
+" ------------------------- "
+augroup tsgrp
+    autocmd!
+    autocmd FileType typescript :set tabstop=2
+    autocmd FileType typescript :set shiftwidth=2
+    autocmd FileType typescript :set syntax=OFF
+augroup END
+
+" ------------------------- "
+" -- BEGIN JS SETTINGS -- "
+" ------------------------- "
+augroup jsgrp
+    autocmd!
+    autocmd FileType javascript :set tabstop=2
+    autocmd FileType javascript :set shiftwidth=2
+    autocmd FileType javascript :set syntax=OFF
+augroup END
+
+" ------------------------- "
 " -- BEGIN YAML SETTINGS -- "
 " ------------------------- "
 augroup yamlgrpm

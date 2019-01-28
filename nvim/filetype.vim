@@ -7,4 +7,5 @@ augroup filetypedetect
 
     au! BufRead,BufNewFile *.ex setfiletype elixir
     au! BufRead,BufNewFile *.exs setfiletype elixir
+    au! BufRead,BufNewFile *.ts setfiletype typescript
 augroup END
