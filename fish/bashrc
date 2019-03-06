@@ -1,2 +1,7 @@
 export PATH=$PATH:~/.config/mybin/
-fish
+
+case "$-" in
+*i*) exec fish ;;
+*) echo noninteractive ;;
+esac
+
