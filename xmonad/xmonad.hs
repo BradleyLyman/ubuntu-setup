@@ -4,7 +4,6 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.Decoration
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.NoBorders
-import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
 import XMonad.Util.NamedScratchpad
 
@@ -56,8 +55,6 @@ scratchpads =
                 x = 0.05
                 y = 0.05
 
-main = xmonad $ myConfig
-
 myKeymap = [ ("M-n", spawn myLauncher)
            , ("M-b", spawn (myBrowser ++ " -P browser --class=browser --new-window"))
            , ("M-<Backspace>", kill)
@@ -72,18 +69,20 @@ myKeymap = [ ("M-n", spawn myLauncher)
                ])
            ]
 
-myConfig = defaultConfig
-    { terminal = myTerminal
-    , normalBorderColor = inactive
-    , focusedBorderColor = active
-    , layoutHook = myLayoutHook
-    , modMask = myModMask
-    , focusFollowsMouse = myFocusFollowsMouse
-    , clickJustFocuses = myClickJustFocuses
-    , borderWidth = myBorderWidth
-    , startupHook = return () >> checkKeymap myConfig myKeymap
-    , manageHook = myManageHook <+> manageHook defaultConfig
-    }
+main = xmonad $ myConfig
+
+myConfig =
+    def { terminal = myTerminal
+        , normalBorderColor = inactive
+        , focusedBorderColor = active
+        , layoutHook = myLayoutHook
+        , modMask = myModMask
+        , focusFollowsMouse = myFocusFollowsMouse
+        , clickJustFocuses = myClickJustFocuses
+        , borderWidth = myBorderWidth
+        , startupHook = return () >> checkKeymap myConfig myKeymap
+        , manageHook = myManageHook <+> manageHook def
+        }
     `additionalKeysP`
     myKeymap
 
@@ -92,7 +91,7 @@ myModMask = mod4Mask
 myBorderWidth = 2
 myFocusFollowsMouse = False
 myClickJustFocuses = True
-myLayoutHook = addTopBar $ spacing gap $ noBorders $ ThreeColMid 1 (3/100) (1/3)
+myLayoutHook = addTopBar $ spacing gap $ noBorders $ Tall 1 (3/100) (2/3)
 myLauncher = "rofi -matching fuzzy -combi-modi window,run -show combi -modi combi"
 myBrowser = "firefox "
 myManageHook = composeAll
@@ -137,7 +136,7 @@ status = 20
 myFont = "-*-terminus-medium-*-*-*-*-160-*-*-*-*-*-*"
 addTopBar = noFrillsDeco shrinkText topBarTheme
 
-topBarTheme = defaultTheme
+topBarTheme = def
     { fontName = myFont
     , activeColor = active
     , inactiveColor = base03
