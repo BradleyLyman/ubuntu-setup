@@ -133,6 +133,16 @@ augroup jsgrp
 augroup END
 
 " ------------------------- "
+" -- BEGIN JSON SETTINGS -- "
+" ------------------------- "
+augroup jsongrp
+    autocmd!
+    autocmd FileType json :set tabstop=2
+    autocmd FileType json :set shiftwidth=2
+    autocmd FileType json :set syntax=OFF
+augroup END
+
+" ------------------------- "
 " -- BEGIN YAML SETTINGS -- "
 " ------------------------- "
 augroup yamlgrpm
@@ -170,12 +180,22 @@ augroup END
 " --------------------------------- "
 " -- BEGIN RUST PROJECT SETTINGS -- "
 " --------------------------------- "
-let g:ycm_rust_src_path = '~/.cargo/rust/src'
+let g:ycm_rust_src_path = '~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust'
 
 augroup rustgrp
     autocmd!
     autocmd FileType rust :set syntax=OFF
     autocmd FileType rust vmap <Leader>f :'<,'>!rustfmt<CR>
+augroup END
+
+" ------------------------------------- "
+" -- BEGIN MAKEFILE PROJECT SETTINGS -- "
+" ------------------------------------- "
+augroup makefilegrp
+    autocmd!
+    autocmd FileType make :set noexpandtab
+    autocmd FileType make :set tabstop=8
+    autocmd FileType make :set shiftwidth=8
 augroup END
 
 
