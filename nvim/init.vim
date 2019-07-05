@@ -42,7 +42,7 @@ set autoread
 set number
 set relativenumber
 
-hi ColorColumn ctermbg=11
+hi ColorColumn ctermbg=black
 
 " -------------------- "
 " --  Key Remapping -- "

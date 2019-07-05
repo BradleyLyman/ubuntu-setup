@@ -141,7 +141,7 @@ colors:
   # Default colors
   primary:
     background: '0xfdf6e3' # S_base03
-    foreground: '0x657b83' # S_base0
+    foreground: '0x586e75' # S_base1
 
   cursor:
     text: '0xfdf6e3' # S_base03
@@ -149,7 +149,7 @@ colors:
 
   # Normal colors
   normal:
-    black:   '0xfdf6e3' # S_base03
+    black:   '0xeee8d5' # S_base02
     red:     '0xdc322f' # S_red
     green:   '0x859900' # S_green
     yellow:  '0xb58900' # S_yellow
@@ -165,7 +165,7 @@ colors:
     green:   '0x93a1a1' # S_base01
     yellow:  '0x839496' # S_base00
     blue:    '0x657b83' # S_base0
-    magenta: '0x657b83' # S_violet
+    magenta: '0x6c71c4' # S_violet
     cyan:    '0x586e75' # S_base1
     white:   '0x002b36' # S_base3
 
