@@ -84,7 +84,7 @@ end
 
 if ARGV.first == "-u"
     uninstall
-elsif ARGV.first == "-cfg"
+elsif ARGV.first == "-c"
     install_init_vim
 else
     install

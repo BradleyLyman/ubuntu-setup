@@ -43,6 +43,7 @@ set number
 set relativenumber
 
 hi ColorColumn ctermbg=black
+hi LineNr ctermbg=black
 
 " -------------------- "
 " --  Key Remapping -- "
@@ -130,6 +131,8 @@ augroup jsgrp
     autocmd FileType javascript :set tabstop=2
     autocmd FileType javascript :set shiftwidth=2
     autocmd FileType javascript :set syntax=OFF
+    autocmd FileType javascript :iabbrev cc /** Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved. */
+    autocmd FileType javascript :iabbrev us "use strict";
 augroup END
 
 " ------------------------- "
@@ -161,6 +164,16 @@ augroup elixirgrp
     autocmd FileType elixir :set shiftwidth=2
     autocmd FileType elixir :set syntax=OFF
     autocmd FileType elixir :set omnifunc
+augroup END
+
+" ------------------------------- "
+" -- BEGIN POWERSHELL SETTINGS -- "
+" ------------------------------- "
+augroup elixirgrp
+    autocmd!
+    autocmd FileType powershell :set tabstop=2
+    autocmd FileType powershell :set shiftwidth=2
+    autocmd FileType powershell :set syntax=OFF
 augroup END
 
 " ---------------------------------- "
@@ -198,11 +211,9 @@ augroup makefilegrp
     autocmd FileType make :set shiftwidth=8
 augroup END
 
-
 " ----------------------------------- "
 " -- BEGIN JAVA PROJECT MANAGEMENT -- "
 " ----------------------------------- "
-
 augroup javagrp
     autocmd!
     autocmd FileType java :set syntax=OFF
