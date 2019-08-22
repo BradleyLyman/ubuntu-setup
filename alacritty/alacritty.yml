@@ -139,70 +139,104 @@ colors:
   # ############## #
 
   # Default colors
-  primary:
-    background: '0xfdf6e3' # S_base03
-    foreground: '0x586e75' # S_base1
+  # primary:
+  #   background: '0xfdf6e3' # S_base03
+  #   foreground: '0x586e75' # S_base1
 
-  cursor:
-    text: '0xfdf6e3' # S_base03
-    cursor: '0x586e75' # S_base1
+  # cursor:
+  #   text: '0xfdf6e3' # S_base03
+  #   cursor: '0x586e75' # S_base1
 
-  # Normal colors
-  normal:
-    black:   '0xeee8d5' # S_base02
-    red:     '0xdc322f' # S_red
-    green:   '0x859900' # S_green
-    yellow:  '0xb58900' # S_yellow
-    blue:    '0x268bd2' # S_blue
-    magenta: '0xd33682' # S_magenta
-    cyan:    '0x2aa198' # S_cyan
-    white:   '0x073642' # S_base2
+  # # Normal colors
+  # normal:
+  #   black:   '0xeee8d5' # S_base02
+  #   red:     '0xdc322f' # S_red
+  #   green:   '0x859900' # S_green
+  #   yellow:  '0xb58900' # S_yellow
+  #   blue:    '0x268bd2' # S_blue
+  #   magenta: '0xd33682' # S_magenta
+  #   cyan:    '0x2aa198' # S_cyan
+  #   white:   '0x073642' # S_base2
 
-  # Bright colors
-  bright:
-    black:   '0xfdf6e3' # S_base03
-    red:     '0xcb4b16' # S_orange
-    green:   '0x93a1a1' # S_base01
-    yellow:  '0x839496' # S_base00
-    blue:    '0x657b83' # S_base0
-    magenta: '0x6c71c4' # S_violet
-    cyan:    '0x586e75' # S_base1
-    white:   '0x002b36' # S_base3
+  # # Bright colors
+  # bright:
+  #   black:   '0xfdf6e3' # S_base03
+  #   red:     '0xcb4b16' # S_orange
+  #   green:   '0x93a1a1' # S_base01
+  #   yellow:  '0x839496' # S_base00
+  #   blue:    '0x657b83' # S_base0
+  #   magenta: '0x6c71c4' # S_violet
+  #   cyan:    '0x586e75' # S_base1
+  #   white:   '0x002b36' # S_base3
+
+  # Default colors
+  # primary:
+  #   background: '0xfdf6e3'
+  #   foreground: '0x586e75'
+
+  # cursor:
+  #   text: '0xfdf6e3'
+  #   cursor: '0x586e75'
+
+  # indexed_colors:
+  #   - { index:  0, color: '0xeee8d5' } # s_base02
+  #   - { index:  1, color: '0xdc322f' } # S_red
+  #   - { index:  2, color: '0x859900' } # S_green
+  #   - { index:  3, color: '0xb58900' } # S_yellow
+  #   - { index:  4, color: '0x268bd2' } # S_blue
+  #   - { index:  5, color: '0xd33682' } # S_magenta
+  #   - { index:  6, color: '0x2aa198' } # S_cyan
+  #   - { index:  7, color: '0x586e75' } # S_base2
+  #   - { index:  8, color: '0xcb4b16' } # S_orange
+  #   - { index:  9, color: '0xfdf6e3' } # S_base03
+  #   - { index: 10, color: '0x93a1a1' } # S_base01
+  #   - { index: 11, color: '0x839496' } # S_base00
+  #   - { index: 12, color: '0x657b83' } # S_base0
+  #   - { index: 13, color: '0x6c71c4' } # S_violet
+  #   - { index: 14, color: '0x93a1a1' } # S_base1
+  #   - { index: 15, color: '0xfdf6e3' } # S_base3
+
+  #   - { index: 16, color: '0xcb4b16' }
+  #   - { index: 17, color: '0xd33682' }
+  #   - { index: 18, color: '0xeee8d5' }
+  #   - { index: 19, color: '0x93a1a1' }
+  #   - { index: 20, color: '0x657b83' }
+  #   - { index: 21, color: '0x073642' }
 
   # ############## #
   # SOLARIZED DARK #
   # ############## #
 
-  # # Default colors
-  # primary:
-  #   background: '0x002b36'
-  #   foreground: '0x657b83'
+  # Default colors
+  primary:
+    background: '0x002b36'
+    foreground: '0x657b83'
 
-  # cursor:
-  #   text: '0x000000'
-  #   cursor: '0x93a1a1'
+  cursor:
+    text: '0x000000'
+    cursor: '0x93a1a1'
 
-  # # Normal colors
-  # normal:
-  #   black:   '0x073642'
-  #   red:     '0xdc322f'
-  #   green:   '0x859900'
-  #   yellow:  '0xb58900'
-  #   blue:    '0x268bd2'
-  #   magenta: '0xd33682'
-  #   cyan:    '0x2aa198'
-  #   white:   '0xeee8d5'
+  # Normal colors
+  normal:
+    black:   '0x073642'
+    red:     '0xdc322f'
+    green:   '0x859900'
+    yellow:  '0xb58900'
+    blue:    '0x268bd2'
+    magenta: '0xd33682'
+    cyan:    '0x2aa198'
+    white:   '0xeee8d5'
 
-  # # Bright colors
-  # bright:
-  #   black:   '0x002b36'
-  #   red:     '0xcb4b16'
-  #   green:   '0x586e75'
-  #   yellow:  '0x657b83'
-  #   blue:    '0x839496'
-  #   magenta: '0x6c71c4'
-  #   cyan:    '0x93a1a1'
-  #   white:   '0xfdf6e3'
+  # Bright colors
+  bright:
+    black:   '0x002b36'
+    red:     '0xcb4b16'
+    green:   '0x586e75'
+    yellow:  '0x657b83'
+    blue:    '0x839496'
+    magenta: '0x6c71c4'
+    cyan:    '0x93a1a1'
+    white:   '0xfdf6e3'
 
   # Dim colors
   #
@@ -217,16 +251,6 @@ colors:
   #  magenta: '0x80638e'
   #  cyan:    '0x497e7a'
   #  white:   '0x9a9a9a'
-
-  # Indexed Colors
-  #
-  # The indexed colors include all colors from 16 to 256.
-  # When these are not set, they're filled with sensible defaults.
-  #
-  # Example:
-  #   `- { index: 16, color: '0xff00ff' }`
-  #
-  indexed_colors: []
 
 # Visual Bell
 #
