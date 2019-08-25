@@ -54,18 +54,30 @@ end
 
 $default_logger = Logger.new "default", true
 
+=begin
+Log a message to the console with an [info] prefix and color.
+=end
 def info(msg)
     $default_logger.info msg
 end
 
+=begin
+Log a message to the console with an [warn] prefix and color.
+=end
 def warn(msg)
     $default_logger.warn msg
 end
 
+=begin
+Log a message to the console with an [error] prefix and color.
+=end
 def error(msg)
     $default_logger.error msg
 end
 
+=begin
+Add a prefix name to all logs which execute within the associated block.
+=end
 def log_block(name)
     old_name = $default_logger.name
     $default_logger.set_name "#{old_name}.#{name}"
