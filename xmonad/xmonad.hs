@@ -16,11 +16,11 @@ import qualified XMonad.StackSet as W
 -- ALSO:
 --   If the window-finder doesn't work, then the ManageHook won't work
 scratchpads =
-    [ NS "htop" "urxvt -e htop" (title =? "htop") manageHTop
+    [ NS "htop" "alacritty -t htop -e htop" (title =? "htop") manageHTop
     , NS "mail" mailCmd (className =? "mail") manageEmail
     , NS "browse" browseCmd (className =? "browse-scratch") manageEmail
     , NS "chime" chimeCmd (className =? "chime-scratch") manageEmail
-    , NS "elixir" "urxvt -e iex" (title =? "iex") manageElixir
+    , NS "elixir" "alacritty -t iex -e iex" (title =? "iex") manageElixir
     ]
     where
         manageHTop = customFloating $ W.RationalRect x y w h
@@ -86,7 +86,7 @@ myConfig =
     `additionalKeysP`
     myKeymap
 
-myTerminal = "urxvt"
+myTerminal = "alacritty"
 myModMask = mod4Mask
 myBorderWidth = 2
 myFocusFollowsMouse = False
