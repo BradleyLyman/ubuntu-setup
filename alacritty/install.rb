@@ -5,7 +5,7 @@ require_relative '../ruby/brlyman/log.rb'
 def install
     info "install dependencies"
     system "sudo apt-get install cmake pkg-config libfreetype6-dev"
-    system "sudo apt-get install libfontconfig1-dev xclip"
+    system "sudo apt-get install libfontconfig1-dev libxcb-xfixes0-dev python3"
 
     info "clone repo"
     system "git clone https://github.com/jwilm/alacritty"
@@ -14,7 +14,7 @@ def install
     system "cd alacritty && cargo install cargo-deb"
 
     info "build alacritty package and install"
-    system "cd alacritty && cargo deb --install"
+    system "cd alacritty && cargo deb --install -p alacritty"
 
     info "create configuration dir"
     system "mkdir -p ~/.config/alacritty"
