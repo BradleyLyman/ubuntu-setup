@@ -46,7 +46,7 @@ end
 
 if ARGV.first == "-u"
     uninstall
-elsif ARGV.first == "--config"
+elsif ARGV.first == "--config" or ARGV.first == "-c"
     update_src
 else
     install
