@@ -4,19 +4,26 @@ set shell=/bin/bash
 " --  Vundle Config  -- "
 " --------------------- "
 call plug#begin('~/.vim/plugged')
-    Plug 'valloric/YouCompleteMe'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
     Plug 'altercation/vim-colors-solarized'
     Plug 'scrooloose/nerdtree'
     Plug 'godlygeek/tabular'
-    Plug 'rhysd/vim-clang-format'
 
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 
     Plug 'epeli/slimux'
-    Plug 'slashmili/alchemist.vim'
-    Plug 'elixir-editors/vim-elixir'
+    Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'bash install.sh',
+        \ }
 call plug#end()
+
+let g:deoplete#enable_at_startup = 1
 
 " --------------------------- "
 " -- GENERAL CONFIGURATION -- "
@@ -25,6 +32,7 @@ filetype on
 filetype plugin on
 filetype indent off
 
+set hidden
 set mouse=v
 set clipboard+=unnamedplus
 set expandtab
@@ -45,6 +53,20 @@ set relativenumber
 hi ColorColumn ctermbg=black
 hi LineNr ctermbg=black
 
+" ---------------------- "
+" -- Language Servers -- "
+" ---------------------- "
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'ruby': ['solargraph', 'stdio'],
+    \ 'sh': ['bash-language-server', 'start'],
+    \ 'javascript': [
+    \   'node',
+    \   '/usr/lib/javascript-typescript-langserver/lib/language-server-stdio.js'
+    \  ],
+    \ 'java': ['~/.config/jdt/run_lang_server.sh']
+    \ }
+
 " -------------------- "
 " --  Key Remapping -- "
 " -------------------- "
@@ -53,11 +75,6 @@ nmap <space> zz
 noremap ; :
 
 nnoremap <leader>w <C-w>
-
-" mappings for eclim shortcuts
-nnoremap <leader>c :YcmCompleter FixIt<CR>
-nnoremap <leader>doc :YcmCompleter GetDoc<CR>
-nnoremap <leader>gt :YcmCompleter GoToDefinition<CR>
 
 " mappings for tags
 nnoremap <leader>f <C-]>
@@ -72,6 +89,15 @@ nnoremap <leader>m '
 
 " mappings for terminal mode
 tnoremap <Esc> <C-\><C-n>
+
+" DEOPLETE/LanguageClient Settings
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+nnoremap <leader>c :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
+nnoremap <leader>gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <leader>rn :call LanguageClient#textDocument_rename()<CR>
 
 
 " ---------------------- "
@@ -111,6 +137,16 @@ augroup shgrp
     autocmd FileType sh :set tabstop=2
     autocmd FileType sh :set shiftwidth=2
     autocmd FileType sh :set syntax=OFF
+augroup END
+
+" ------------------------- "
+" -- BEGIN RUBY SETTINGS -- "
+" ------------------------- "
+augroup rubygrp
+    autocmd!
+    autocmd FileType ruby :set tabstop=2
+    autocmd FileType ruby :set shiftwidth=2
+    autocmd FileType ruby :set syntax=OFF
 augroup END
 
 " ------------------------- "
@@ -176,6 +212,15 @@ augroup elixirgrp
     autocmd FileType powershell :set syntax=OFF
 augroup END
 
+" ----------------------------- "
+" -- BEGIN XML/HTML SETTINGS -- "
+" ----------------------------- "
+augroup xmlhtml
+    autocmd!
+    autocmd FileType ant,xml,html :set tabstop=2
+    autocmd FileType ant,xml,html :set shiftwidth=2
+augroup END
+
 " ---------------------------------- "
 " -- BEGIN C++ PROJECT MANAGEMENT -- "
 " ---------------------------------- "
@@ -193,8 +238,6 @@ augroup END
 " --------------------------------- "
 " -- BEGIN RUST PROJECT SETTINGS -- "
 " --------------------------------- "
-let g:ycm_rust_src_path = '~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust'
-
 augroup rustgrp
     autocmd!
     autocmd FileType rust :set syntax=OFF
@@ -217,17 +260,10 @@ augroup END
 augroup javagrp
     autocmd!
     autocmd FileType java :set syntax=OFF
-    autocmd FileType java :iabbrev cc Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    autocmd FileType java :iabbrev cc Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     autocmd FileType java :iabbrev pc public class
     autocmd FileType java :iabbrev pv public void
     autocmd FileType java :iabbrev isat import static org.hamcrest.MatcherAssert.assertThat;
     autocmd FileType java :iabbrev ism import static org.hamcrest.Matchers
     autocmd FileType java :iabbrev hcr @RunWith(HierarchicalContextRunner.class)
 augroup END
-
-let home = system("echo ~")[:-2]
-let lombok_path = home . "/.config/mybin/lombok.jar"
-let java_agent = "-javaagent:" . lombok_path
-let boot_cp = "-Xbootclasspath/p:" . lombok_path
-
-let $JAVA_TOOL_OPTIONS = java_agent . " " . boot_cp
