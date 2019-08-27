@@ -3,7 +3,6 @@
 BASE_DIR=~/.config/jdt
 
 exec java \
-  -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044 \
   -javaagent:$BASE_DIR/lombok.jar \
   -Xbootclasspath/a:$BASE_DIR/lombok.jar \
   -Declipse.application=org.eclipse.jdt.ls.core.id1 \
