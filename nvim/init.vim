@@ -128,7 +128,6 @@ nnoremap <leader>b :SlimuxREPLSendBuffer<CR>
 " -------------------- "
 let g:airline#extensions#tabline#enabled = 1
 
-
 " ------------------------- "
 " -- BEGIN SH SETTINGS -- "
 " ------------------------- "
@@ -205,7 +204,7 @@ augroup END
 " ------------------------------- "
 " -- BEGIN POWERSHELL SETTINGS -- "
 " ------------------------------- "
-augroup elixirgrp
+augroup pwshgrp
     autocmd!
     autocmd FileType powershell :set tabstop=2
     autocmd FileType powershell :set shiftwidth=2
