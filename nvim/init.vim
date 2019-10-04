@@ -128,6 +128,11 @@ nnoremap <leader>b :SlimuxREPLSendBuffer<CR>
 " -------------------- "
 let g:airline#extensions#tabline#enabled = 1
 
+augroup gitcommit
+    autocmd!
+    autocmd FileType gitcommit :set colorcolumn=72
+augroup end
+
 " ------------------------- "
 " -- BEGIN SH SETTINGS -- "
 " ------------------------- "
