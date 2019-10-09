@@ -16,6 +16,8 @@ Set-PSReadLineOption -EditMode "Vi" -Colors @{
   Variable = [ConsoleColor]::White
 }
 
+Set-PSReadlineKeyHandler -Key Tab -Function Complete
+
 function prompt {
   Write-Host "┏╸" -ForegroundColor Magenta -NoNewLine
   Write-Host $pwd -ForegroundColor DarkYellow
