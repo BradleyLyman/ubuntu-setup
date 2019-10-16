@@ -22,7 +22,7 @@ function prompt {
   Write-Host "┏╸" -ForegroundColor Magenta -NoNewLine
   Write-Host $pwd -ForegroundColor DarkYellow
 
-  $branch = & git branch 2>out-null
+  $branch = & git branch 2>$null
   if ($branch -ne $null) {
     Set-PSReadLineOption -ExtraPromptLineCount 2
     Write-Host "┣╸" -ForegroundColor Magenta -NoNewLine
