@@ -7,8 +7,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
 
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
     Plug 'altercation/vim-colors-solarized'
     Plug 'scrooloose/nerdtree'
     Plug 'godlygeek/tabular'
@@ -17,13 +15,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline-themes'
 
     Plug 'epeli/slimux'
-    Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ }
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
-
-let g:deoplete#enable_at_startup = 1
 
 " --------------------------- "
 " -- GENERAL CONFIGURATION -- "
@@ -36,8 +29,8 @@ set hidden
 set mouse=v
 set clipboard+=unnamedplus
 set expandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set autoindent
 " remove trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
@@ -52,20 +45,6 @@ set relativenumber
 
 hi ColorColumn ctermbg=black
 hi LineNr ctermbg=black
-
-" ---------------------- "
-" -- Language Servers -- "
-" ---------------------- "
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'ruby': ['solargraph', 'stdio'],
-    \ 'sh': ['bash-language-server', 'start'],
-    \ 'javascript': [
-    \   'node',
-    \   '/usr/lib/javascript-typescript-langserver/lib/language-server-stdio.js'
-    \  ],
-    \ 'java': ['~/.config/jdt/run_lang_server.sh']
-    \ }
 
 " -------------------- "
 " --  Key Remapping -- "
@@ -93,11 +72,12 @@ tnoremap <Esc> <C-\><C-n>
 " DEOPLETE/LanguageClient Settings
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
-nnoremap <leader>c :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
-nnoremap <leader>gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <leader>rn :call LanguageClient#textDocument_rename()<CR>
+
+" nnoremap <leader>c :call LanguageClient_contextMenu()<CR>
+" " Or map each action separately
+" nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <leader>gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <leader>rn :call LanguageClient#textDocument_rename()<CR>
 
 
 " ---------------------- "

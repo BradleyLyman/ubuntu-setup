@@ -9,7 +9,7 @@ end
 
 def install
     info "remove vim"
-    system "sudo apt-get remove --purge vim"
+    # system "sudo apt-get remove --purge vim"
 
     info "symlink old .vim dir"
     system "mkdir -p ~/.config/nvim"
@@ -17,14 +17,13 @@ def install
 
     log_block "install_neovim" do
         info "**START**"
-        system "sudo apt-get install software-properties-common"
-        system "sudo add-apt-repository ppa:neovim-ppa/stable"
-        system "sudo apt-get update"
-        system "sudo apt-get install neovim"
-        system "sudo apt-get install python-dev python-pip python3-dev python3-pip"
-
-        system "sudo pip install --upgrade neovim"
-        system "sudo pip3 install --upgrade neovim"
+	system "sudo apt-get install curl"
+	system "curl -L -O https://github.com/neovim/neovim/releases/download/v0.4.3/nvim-linux64.tar.gz"
+	system "tar xzfv nvim-linux64.tar.gz"
+	system "mv nvim-linux64/ ~/.config/nvim"
+        system "sudo ln -s ~/.config/nvim/nvim-linux64/bin/nvim /usr/bin/nvim"
+        system "sudo apt-get install python-neovim"
+	system "sudo apt-get install python3-neovim"
         info "**DONE**"
     end
 
