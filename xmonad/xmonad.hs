@@ -17,10 +17,8 @@ import qualified XMonad.StackSet as W
 --   If the window-finder doesn't work, then the ManageHook won't work
 scratchpads =
     [ NS "htop" "alacritty -t htop -e htop" (title =? "htop") manageHTop
-    , NS "mail" mailCmd (className =? "mail") manageEmail
     , NS "browse" browseCmd (className =? "browse-scratch") manageEmail
-    , NS "chime" chimeCmd (className =? "chime-scratch") manageEmail
-    , NS "elixir" "alacritty -t iex -e iex" (title =? "iex") manageElixir
+    , NS "discord" discordCmd (className =? "discord") manageEmail
     ]
     where
         manageHTop = customFloating $ W.RationalRect x y w h
@@ -29,10 +27,7 @@ scratchpads =
                 w = 0.3
                 x = 0.95 - w
                 y = 0.05
-        mailCmd = myBrowser
-                ++ " https://ballard.amazon.com"
-                ++ " -P mail --class=mail"
-                ++ " --new-window"
+        discordCmd = "discord"
         manageEmail = customFloating $ W.RationalRect x y w h
             where
                 h = 0.6
@@ -43,29 +38,16 @@ scratchpads =
                   ++ " -P browse-scratch"
                   ++ " --class='browse-scratch'"
                   ++ " --new-window"
-        chimeCmd = myBrowser
-                 ++ " https://app.chime.aws"
-                 ++ " -P chime-scratch"
-                 ++ " --class='chime-scratch'"
-                 ++ " --new-window"
-        manageElixir = customFloating $ W.RationalRect x y w h
-            where
-                h = 0.4
-                w = 0.4
-                x = 0.05
-                y = 0.05
 
 myKeymap = [ ("M-n", spawn myLauncher)
-           , ("M-b", spawn (myBrowser ++ " -P browser --class=browser --new-window"))
+           , ("M-b", spawn (myBrowser ++ " -P default --class=browser --new-window"))
            , ("M-<Backspace>", kill)
            , ("M-<Return>", spawn myTerminal)
            , ("M-m", windows W.swapMaster)
            , ("M-s", submap . M.fromList $
                [ ((0, xK_b), namedScratchpadAction scratchpads "browse")
-               , ((0, xK_c), namedScratchpadAction scratchpads "chime")
+               , ((0, xK_c), namedScratchpadAction scratchpads "discord")
                , ((0, xK_h), namedScratchpadAction scratchpads "htop")
-               , ((0, xK_m), namedScratchpadAction scratchpads "mail")
-               , ((0, xK_e), namedScratchpadAction scratchpads "elixir")
                ])
            ]
 
