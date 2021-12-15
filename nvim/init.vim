@@ -1,30 +1,23 @@
-set shell=/bin/bash
+" set shell=pwsh.exe
 
-" --------------------- "
-" --  Vundle Config  -- "
-" --------------------- "
-call plug#begin('~/.vim/plugged')
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
+call plug#begin("~/AppData/Local/nvim/plugged")
+  Plug 'preservim/nerdtree'
+  Plug 'altercation/vim-colors-solarized'
+  Plug 'godlygeek/tabular'
 
-    Plug 'altercation/vim-colors-solarized'
-    Plug 'scrooloose/nerdtree'
-    Plug 'godlygeek/tabular'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
 
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-
-    Plug 'epeli/slimux'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'JuliaEditorSupport/julia-vim'
 call plug#end()
 
-" --------------------------- "
-" -- GENERAL CONFIGURATION -- "
-" --------------------------- "
 filetype on
 filetype plugin on
 filetype indent off
 
+set encoding=utf-8
+scriptencoding utf-8
 set hidden
 set mouse=v
 set clipboard+=unnamedplus
@@ -32,222 +25,124 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 set autoindent
-" remove trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :retab
 set ruler
 set background=dark
-colorscheme solarized
 set colorcolumn=80
 set autoread
 set number
 set relativenumber
+syntax enable
+set signcolumn=number
 
-hi ColorColumn ctermbg=black
-hi LineNr ctermbg=black
 
-" -------------------- "
-" --  Key Remapping -- "
-" -------------------- "
+set t_Co=16
+let g:solarized_termcolors=16
+colorscheme solarized
+
+hi LineNr ctermbg=None
+hi ColorColumn ctermbg=Black
+
+let g:latex_to_unicode_tab = 0
+let g:latex_to_unicode_auto = 0
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='luna'
+
+" ------------------
+" -- Key Mappings --
+" ------------------
+
 let mapleader = ","
 nmap <space> zz
 noremap ; :
 
+" buffer controls
 nnoremap <leader>w <C-w>
 
-" mappings for tags
-nnoremap <leader>f <C-]>
-nnoremap <leader>t <C-t>
-
-" mappings for file-explore
+" file controls
 nnoremap <leader>n :bn<CR>
-nnoremap <leader>d : bdelete<CR>
+nnoremap <leader>p :bp<CR>
+nnoremap <leader>d :bdelete<CR>
 
-" mappings for marks
-nnoremap <leader>m '
-
-" mappings for terminal mode
+" terminal escape
 tnoremap <Esc> <C-\><C-n>
 
-" DEOPLETE/LanguageClient Settings
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
-
-" nnoremap <leader>c :call LanguageClient_contextMenu()<CR>
-" " Or map each action separately
-" nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <leader>gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <leader>rn :call LanguageClient#textDocument_rename()<CR>
-
-
-" ---------------------- "
-" -- tabular Mappings -- "
-" ---------------------- "
-
-nmap <Leader>a :Tabularize /:/<CR>
-vmap <Leader>a :Tabularize /:/<CR>
-
-" --------------------------- "
-" -- NERDTreeConfiguration -- "
-" --------------------------- "
 nnoremap <leader>e :NERDTreeToggle<CR>
+
+
+" --------------------- "
+" -- Nerdtree Config -- "
+" --------------------- "
+
 let g:NERDTreeWinSize=75
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
 
-
-" -------------------- "
-" -- Slimux Keymaps -- "
-" -------------------- "
-
-nnoremap <leader>s :SlimuxREPLSendLine<CR>
-vnoremap <leader>s :SlimuxREPLSendSelection<CR>
-nnoremap <leader>b :SlimuxREPLSendBuffer<CR>
-
-
-" -------------------- "
-" -- Airline Config -- "
-" -------------------- "
-let g:airline#extensions#tabline#enabled = 1
+" --------------
+" -- augroups --
+" --------------
 
 augroup gitcommit
     autocmd!
     autocmd FileType gitcommit :set colorcolumn=72
 augroup end
 
-" ------------------------- "
-" -- BEGIN SH SETTINGS -- "
-" ------------------------- "
-augroup shgrp
-    autocmd!
-    autocmd FileType sh :set tabstop=2
-    autocmd FileType sh :set shiftwidth=2
-    autocmd FileType sh :set syntax=OFF
-augroup END
+augroup julia
+  autocmd!
+  autocmd FileType julia :set syntax=OFF
+  autocmd FileType julia :set tabstop=4
+  autocmd FileType julia :set shiftwidth=4
+augroup end
 
-" ------------------------- "
-" -- BEGIN RUBY SETTINGS -- "
-" ------------------------- "
-augroup rubygrp
-    autocmd!
-    autocmd FileType ruby :set tabstop=2
-    autocmd FileType ruby :set shiftwidth=2
-    autocmd FileType ruby :set syntax=OFF
-augroup END
+augroup rust
+  autocmd!
+  autocmd FileType rust :set syntax=OFF
+  autocmd FileType rust :set tabstop=4
+  autocmd FileType rust :set shiftwidth=4
+augroup end
 
-" ------------------------- "
-" -- BEGIN TS SETTINGS -- "
-" ------------------------- "
-augroup tsgrp
-    autocmd!
-    autocmd FileType typescript :set tabstop=2
-    autocmd FileType typescript :set shiftwidth=2
-    autocmd FileType typescript :set syntax=OFF
-augroup END
+" ----------------
+" -- COC CONFIG --
+" ----------------
 
-" ------------------------- "
-" -- BEGIN JS SETTINGS -- "
-" ------------------------- "
-augroup jsgrp
-    autocmd!
-    autocmd FileType javascript :set tabstop=2
-    autocmd FileType javascript :set shiftwidth=2
-    autocmd FileType javascript :set syntax=OFF
-    autocmd FileType javascript :iabbrev cc /** Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved. */
-    autocmd FileType javascript :iabbrev us "use strict";
-augroup END
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" ------------------------- "
-" -- BEGIN JSON SETTINGS -- "
-" ------------------------- "
-augroup jsongrp
-    autocmd!
-    autocmd FileType json :set tabstop=2
-    autocmd FileType json :set shiftwidth=2
-    autocmd FileType json :set syntax=OFF
-augroup END
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-" ------------------------- "
-" -- BEGIN YAML SETTINGS -- "
-" ------------------------- "
-augroup yamlgrpm
-    autocmd!
-    autocmd FileType yaml :set tabstop=2
-    autocmd FileType yaml :set shiftwidth=2
-    autocmd FileType yaml :set syntax=OFF
-augroup END
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-" --------------------------- "
-" -- BEGIN ELIXIR SETTINGS -- "
-" --------------------------- "
-augroup elixirgrp
-    autocmd!
-    autocmd FileType elixir :set tabstop=2
-    autocmd FileType elixir :set shiftwidth=2
-    autocmd FileType elixir :set syntax=OFF
-    autocmd FileType elixir :set omnifunc
-augroup END
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" ------------------------------- "
-" -- BEGIN POWERSHELL SETTINGS -- "
-" ------------------------------- "
-augroup pwshgrp
-    autocmd!
-    autocmd FileType powershell :set tabstop=2
-    autocmd FileType powershell :set shiftwidth=2
-    autocmd FileType powershell :set syntax=OFF
-augroup END
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" ----------------------------- "
-" -- BEGIN XML/HTML SETTINGS -- "
-" ----------------------------- "
-augroup xmlhtml
-    autocmd!
-    autocmd FileType ant,xml,html :set tabstop=2
-    autocmd FileType ant,xml,html :set shiftwidth=2
-augroup END
+nnoremap <leader>gh :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <leader>f  <Plug>(coc-fix-current)
+nmap <leader>rn <Plug>(coc-rename)
 
-" ---------------------------------- "
-" -- BEGIN C++ PROJECT MANAGEMENT -- "
-" ---------------------------------- "
-let g:clang_format#detect_style_file = 1
-let g:ycm_global_ycm_extra_conf = '/home/brlyman/.config/nvim/ycm_extra_conf.py'
-augroup cpp
-    autocmd!
-    autocmd FileType c,cpp :set syntax=OFF
-    autocmd FileType c,cpp :set tabstop=4
-    autocmd FileType c,cpp :set shiftwidth=4
-    autocmd FileType c,cpp ClangFormatAutoEnable
-augroup END
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
-
-" --------------------------------- "
-" -- BEGIN RUST PROJECT SETTINGS -- "
-" --------------------------------- "
-augroup rustgrp
-    autocmd!
-    autocmd FileType rust :set syntax=OFF
-    autocmd FileType rust vmap <Leader>f :'<,'>!rustfmt<CR>
-augroup END
-
-" ------------------------------------- "
-" -- BEGIN MAKEFILE PROJECT SETTINGS -- "
-" ------------------------------------- "
-augroup makefilegrp
-    autocmd!
-    autocmd FileType make :set noexpandtab
-    autocmd FileType make :set tabstop=8
-    autocmd FileType make :set shiftwidth=8
-augroup END
-
-" ----------------------------------- "
-" -- BEGIN JAVA PROJECT MANAGEMENT -- "
-" ----------------------------------- "
-augroup javagrp
-    autocmd!
-    autocmd FileType java :set syntax=OFF
-    autocmd FileType java :iabbrev cc Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-    autocmd FileType java :iabbrev pc public class
-    autocmd FileType java :iabbrev pv public void
-    autocmd FileType java :iabbrev isat import static org.hamcrest.MatcherAssert.assertThat;
-    autocmd FileType java :iabbrev ism import static org.hamcrest.Matchers
-    autocmd FileType java :iabbrev hcr @RunWith(HierarchicalContextRunner.class)
-augroup END
